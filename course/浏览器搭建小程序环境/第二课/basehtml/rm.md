@@ -159,7 +159,13 @@ libuv   setTimeout
 6.requestIdleCallback  js
 https://github.com/WebKit/WebKit/blob/c1a6c5df10fb767d5e341b18e37217dd8237e4fd/Source/WebCore/dom/EventLoop.cpp#L103
 
-
+setTimeout(()=>{
+    console.log(1)
+    Promise.resolve(()=>{
+        console.log(3)
+    });
+    console.log(2)
+}, 0)
 
 
  setTimeOut(()=>{
