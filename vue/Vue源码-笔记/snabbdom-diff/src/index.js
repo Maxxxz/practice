@@ -15,7 +15,7 @@ const myVnode2 = h('ul',{},[
   h('p',{key:'A'},'A'),
   h('p',{key:'D'},'D'),
   h('p',{key:'C'},'C'),
-  h('p',{key:'Q'},'Q'),
+  // h('p',{key:'Q'},'Q'),
 
 ])
 
@@ -24,7 +24,7 @@ const container = document.getElementById('container');
 const btn = document.getElementById('btn')
 
 //第一次上树
-patch(container,myVnode1);
+patch(container, myVnode1);
 
 
 

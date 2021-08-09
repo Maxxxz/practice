@@ -1,6 +1,6 @@
 import vnode from './vnode.js'
 import createElement from './createElement.js'
-import patchVnode from './patchVnode'
+import patchVnode from './patchVnode.js'
 export default function patch(oldVnode,newVnode) {
   //判断传入的第一个参数，是DOM节点还是虚拟节点
   if(oldVnode.sel == '' || oldVnode.sel == undefined){
