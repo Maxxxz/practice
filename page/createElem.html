@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>createElem</title>
+</head>
+<body>
+    <div class="flex-box">
+       <div class="left" id="aaa">asda</div>
+       <div class="content">asdasasdas</div>
+       <div class="right">sds</div> 
+    </div>
+    <div class="createElement">
+
+    </div>
+    <script>
+        let dom1 = document.createElement('div')
+        dom1.innerText = 'hehe';
+        const cont = document.querySelector('.createElement');
+        cont.appendChild(dom1)
+        setTimeout(()=>{
+            let dom2 = document.createElement('div')
+            dom2.innerText = 'hehe2';
+            dom1.appendChild(dom2)
+        }, 5000)
+    </script>
+</body>
+</html>
