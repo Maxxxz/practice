@@ -1,0 +1,54 @@
+<!--
+ * @Author: maxizhang
+ * @Date: 2021-09-06 20:32:41
+ * @FilePath: /practice/assemblyScript/index.html
+ * @Description: 11
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=`, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        fetch('./build/optimized.wasm').then(response => {
+            console.log('response', response);
+            return response.arrayBuffer();
+        }).then(bytes => {
+            console.log('bytes', bytes)
+            return WebAssembly.instantiate(bytes)
+        }).then(result => {
+            console.log('result', result)
+            
+            // const instance = new WebAssembly.Instance(results);  //instantiate
+            const a = result.instance.exports;
+            console.log('a', a);
+            const res = a.add(2,3);
+            console.log('res', res);
+        });
+        function k(){
+            console.log('this.a', this.a)
+        }
+
+        function Aue(a,b){
+            this.a = a;
+            this.b = b;
+        }
+
+        Aue.prototype.fn = k
+
+        const oldfn = Aue.prototype.fn;
+        Aue.prototype.fn = function(...args){
+            console.log('b', this.b)
+            oldfn.call(this, ...args)
+        }
+
+        const t = new Aue(22,333)
+        t.fn();
+    </script>
+</body>
+</html>
