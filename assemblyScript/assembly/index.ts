@@ -44,6 +44,30 @@ export function isPrime(x: u32): bool {
 }
 
 
-export function goconcat(a: string, b: string): string {
-  return a + b
+function addOrSomethingElse<T>(a: T, b: T): T {
+  if (isString<T>()) {
+    return "something else"; // eliminated if T is not a string
+  } else {
+    return a + b; // eliminated if T is a string
+  }
 }
+// 需要外部js主动分配内存空间
+export function goconcat(a: string, b: string): string {
+  const str = addOrSomethingElse(a, b);
+  return str
+}
+
+
+// AssemblyScript
+export class Foo {
+  constructor(public str: string) {}
+  getString(): string {
+    return this.str
+  }
+}
+
+export function getFoo(): Foo { // this one
+  return new Foo("Hello class!")
+}
+
+

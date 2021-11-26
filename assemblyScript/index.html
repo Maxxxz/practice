@@ -27,6 +27,7 @@
                 abort: () => {},
             },
         };
+        
         fetch('./build/untouched.wasm').then(response => {
             console.log('response', response);
             return response.arrayBuffer();
@@ -40,20 +41,47 @@
             // return WebAssembly.instantiate(bytes, global)
         }).then(result => {
             console.log('result', result)
+            console.log('result.exports.__new', result.exports.__new)
+            console.log('result.exports.__setArgumentsLength', result.exports.__setArgumentsLength)
+            
+            testStr(result)
+            testClass(result)
+            
+        });
 
-            const { goconcat } = result.instance.exports
-            const { __newString, __getString } = result.exports
+        function testStr(myModule){
+            const { goconcat } = myModule.exports
+            const { __newString, __getString } = myModule.exports
             function doConcat(aStr, bStr) {
                 let aPtr = __newString(aStr)
+                console.log('aPtr', aPtr)
                 let bPtr = __newString(bStr)
                 let cPtr = goconcat(aPtr, bPtr)
+                console.log('cPtr', cPtr)
                 let cStr = __getString(cPtr)
                 return cStr
             }
 
             console.log(doConcat("Hello ", "world!"))
-        });
-        
+        }
+
+        function testClass(myModule){
+            // JavaScript
+            const { Foo, getFoo } = myModule.exports
+            const { __getString, __pin, __unpin } = myModule.exports
+            console.log('__pin, __unpin', __pin, __unpin)
+            const test1 = getFoo();
+            console.log('test1', test1)
+            const fooPtr = __pin(test1) // pin if necessary
+            console.log('fooPtr', fooPtr)
+            const foo = Foo.wrap(fooPtr)
+            console.log('foo', foo)
+            const strPtr = foo.getString()
+            console.log('strPtr', strPtr)
+            console.log(__getString(strPtr))
+            const unp = __unpin(fooPtr) // unpin if necessary
+            console.log('unp',  unp)
+        }
     </script>
 </body>
 </html>

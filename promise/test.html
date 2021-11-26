@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yibu</title>
+</head>
+<body>
+    <div>111</div>
+    <script>
+        // *************** 
+        // 一个异步回调
+        // *************** 
+        function add_to_wait_list(obj) {
+            setTimeout(() => {
+                obj.callback();
+            }, 500);
+        }
+        
+        // *************** 
+        // 通过then封装解决异步的回调嵌套地狱
+        // 问题：then函数里使用异步的话没法等待then中的函数执行完再继续执行下一个then
+        // *************** 
+        function read_async_v4(target) {
+            const operation = {};
+            add_to_wait_list(operation);
+            const chainableObject = {
+                callbacks: [],
+                then(callback) {
+                    callback && this.callbacks.push(callback);
+                    console.log('init then', this.callbacks)
+                    return this;
+                },
+                run: (data) => {
+                    var arr = chainableObject.callbacks
+                    console.log('run', arr);
+                    let nextData = data;
+                    for (var i=0; i<arr.length; i++) {
+                        var cb = arr[i]
+                        nextData = cb(nextData);
+                    }
+                },
+            };
+            operation.callback = chainableObject.run;
+            return chainableObject;
+        }
+        // 调用demo
+        // 问题：then函数里使用异步的话没法等待then中的函数执行完再继续执行下一个then
+        // read_async_v4('qq.com').then(() => {
+        //     console.log(1);
+        // })
+        // .then(() => {
+        //     console.log(2);
+        // })
+        // .then();
+
+
+        // *************** 
+        // 通过返回 chainableObject 处理 then中有异步函数
+        // 问题：then函数里 异步函数里面的then会被替换掉
+        // *************** 
+        function read_async_v5(target) {
+            const operation = {};
+            add_to_wait_list(operation);
+            let chainableObject = {
+                isChainable: true,
+                callbacks: [],
+                then: function(callback) {
+                    this.callbacks.push(callback);
+                    return this;
+                },
+                run: (data) => {
+                    let nextData = data;
+                    let self = chainableObject; 
+                    // console.log('self.callbacks', self)
+                    while (self.callbacks.length > 0) {
+                        // 每次从队首弹出一个回调函数
+                        let cb = self.callbacks.shift();
+                        nextData = cb && cb(nextData);
+                        console.log('nextData', nextData)
+                        // 如果回调返回了一个ChainableObject，那么就把剩下的callback绑定到它上面
+                        // 然后就可以终止执行了
+                        if (isChainableType(nextData)) {
+                            nextData.callbacks = self.callbacks;
+                            return;
+                        }
+                    }
+                }
+            };
+            operation.callback = chainableObject.run;
+            return chainableObject;
+        }
+        function isChainableType(obj){
+            return obj && obj.isChainable
+        }
+
+        read_async_v5('qq.com')
+        .then(() => {
+            console.log(1);
+        })
+        .then(()=>{
+            return read_async_v5('bb.com').then(()=>{
+                console.log(22)  // 这里不会执行
+            })
+        })
+        .then(() => {
+            console.log(2);
+        })
+        
+        // ********************
+        //  其实我们上述的chainableObject就可以看做是js中的promise。区别是，由于js一开始全是基于回调的编程模型，各种标准库内置的异步方法都只能接收回调，为了向后兼容，没法把那些内置函数改成返回promise。
+        //  因此js的办法是提供promise的构造方法，把异步函数“包装”成promise。如果基于我们chainableObject实现，就是这样的：
+        // ********************
+        function ChainableObject() {
+        return chainableObject = {
+            callbacks: [],
+            then: function(callback) {/*同之前，略*/},
+            run: function(data) {
+            let nextData = data;
+            if self.resolveData != null {
+                nextData = self.resolveData;
+            }
+            while self.callbacks.length > 0 {
+                //同上，省略
+            }
+            },
+            resolveData: null,
+        };
+        }
+
+        function Convert2Chainable(targetFunction) {
+            let obj = new ChainableObject();
+        function resolve(data) {
+            obj.resolveData = data;
+        }
+        targetFunction(resolve);
+            return obj;
+        }
+                
+    </script>
+</body>
+</html>
