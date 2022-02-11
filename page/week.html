@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>flex</title>
+        <style>
+            .flex-box {
+                display: flex;
+            }
+            .flex-box .left,
+            .flex-box .right {
+                flex: 0 0 100px;
+                width: 100px;
+            }
+            .flex-box .content {
+                flex: 1;
+            }
+            .float-box {
+                overflow: auto;
+            }
+            .float-box .left {
+                float: left;
+                width: 100px;
+            }
+            .float-box .right {
+                float: right;
+                width: 100px;
+            }
+            .float-box .content {
+                /* margin: 0 100px; */
+                width: calc(100% - 200px);
+                float: left;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="counter"></div>
+        <script>
+            class weakRefCounter {
+                constructor(element) {
+                    // Remember a weak reference to the DOM element
+                    this.ref = new WeakRef(element);
+                    this.start();
+                }
+
+                start() {
+                    if (this.timer) {
+                        return;
+                    }
+
+                    this.count = 0;
+
+                    const tick = () => {
+                        // Get the element from the weak reference, if it still exists
+                        const element = this.ref.deref();
+                        if (element) {
+                            element.textContent = ++this.count;
+                        } else {
+                            // The element doesn't exist anymore
+                            console.log('The element is gone.');
+                            this.stop();
+                            this.ref = null;
+                        }
+                    };
+
+                    tick();
+                    this.timer = setInterval(tick, 1000);
+                }
+
+                stop() {
+                    if (this.timer) {
+                        clearInterval(this.timer);
+                        this.timer = 0;
+                    }
+                }
+            }
+
+            class weakMapCounter {
+                constructor(element) {
+                    // Remember a weak reference to the DOM element
+                    this.map = new WeakMap()
+                    this.map.set(element, 'ele') // WeakMap 的 key 只能是 Object 类型。 原始数据类型 是不能作为 key 的（比如 Symbol）。
+                    this.element = element;
+                    this.start();
+                }
+
+                start() {
+                    if (this.timer) {
+                        return;
+                    }
+
+                    this.count = 0;
+
+                    const tick = () => {
+                        // Get the element from the weak reference, if it still exists
+                        if(!this.map.get(this.element)){
+                            console.log('no map key', this.element)
+                            return  ''
+                        }
+                        const element = this.element;
+                        console.log('element', element)
+                        if (element) {
+                            element.textContent = ++this.count;
+                        } else {
+                            // The element doesn't exist anymore
+                            console.log('The element is gone.');
+                            this.stop();
+                            this.ref = null;
+                        }
+                    };
+
+                    tick();
+                    this.timer = setInterval(tick, 1000);
+                }
+
+                stop() {
+                    if (this.timer) {
+                        clearInterval(this.timer);
+                        this.timer = 0;
+                    }
+                }
+            }
+
+            let dom = document.getElementById('counter')
+            const counter = new weakMapCounter(dom);
+            counter.start();
+            setTimeout(() => {
+                document.getElementById('counter').remove();
+                dom = null
+                console.log('remove')
+            }, 5000);
+
+        </script>
+    </body>
+</html>
