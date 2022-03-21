@@ -6,6 +6,43 @@
 </head>
 <body>
     <div>111</div>
-    <script src="./promise2.js"></script>
+    <!-- <script src="./promise2.js"></script> -->
+    <!-- <script src="./promise3.js"></script> -->
+    <script>
+    const p = new Promise((resolved, rejected)=>{
+        setTimeout(()=>{
+            resolved('suc')
+            // rejected('err')
+        }, 1000)
+    })
+
+    const res = p
+    .then((res)=>{
+        console.log('1' + res)
+        // return new Promise((resolved, rej)=>{
+        //     // resolved('res promise suc1')
+        //     rej('res promise err1')
+        // })
+        return Promise.reject('a')
+    }, (rej)=>{
+        console.log('err1 ', rej)
+        return 'res rej1'
+    })
+    .then((res)=>{
+        console.log('suc2 ' + res)
+    }, (rej)=>{
+        console.log('err2 ', rej)
+    })
+
+    console.log('res', res)
+
+    // p.then((res)=>{
+    //     console.log('p2 ' + res)
+    // })
+
+    // const rej = Promise.reject(new Promise((resolved)=>resolved(222)))
+    // console.log('rej', rej)
+
+    </script>
 </body>
 </html>
