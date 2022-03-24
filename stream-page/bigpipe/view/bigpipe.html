@@ -1,0 +1,47 @@
+<!--
+ * @Description: 
+ * @Author: easonzhu
+ * @Date: 2018-06-22 19:37:20
+ * @FilePath: /test/view/bigpipe.html
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>test bigpipe</title>
+<body>
+  <div>数据回填模式样例</div>
+
+  <div id="A">
+    <h1>正在加载中....</h1>
+    <p>loading...</p>
+  </div>
+
+  <div id="B">
+    <h1>正在加载中....</h1>
+    <p>loading...</p>
+  </div>
+
+  <div id="C">
+    <h1>正在加载中....</h1>
+    <p>loading...</p>
+  </div>
+
+  <script>
+    // 渲染模板字符串到对应节点
+    var renderFlush = function (selector, html) {
+      var dom = document.querySelector(selector);
+      if(!dom) {
+        var dom = document.createElement('div');
+        dom.innerHTML = html
+        dom.id = selector
+        document.body.appendChild(dom)
+        return
+      }
+      dom.innerHTML = html
+    };
+      // 渲染模板字符串到对应节点
+    var addrenderFlush = function (selector, html) {
+      
+    };
+  </script>

@@ -1,0 +1,21 @@
+{
+  "name": "bigpipe-test",
+  "version": "1.0.0",
+  "description": "bigpipe koa stream",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development node app.js",
+    "build:prod": "deploy-cli-service deploy --mode prod"
+  },
+  "keywords": [
+    "koa",
+    "bigpipe"
+  ],
+  "author": "joe <smallcatcat.joe@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "deploy-cli-service": "^1.0.9",
+    "handlebars": "^3.0.3",
+    "koa": "^2.4.1"
+  }
+}
