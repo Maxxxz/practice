@@ -12,9 +12,9 @@ Vue.use(Vuex);
 const fetchBar = function() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log(111111);
+      console.log(55);
       resolve('bar 组件返回 ajax 数据');
-    }, 1000);
+    }, 5000);
   });
 };
 

@@ -1,0 +1,35 @@
+<!--
+ * @Author: maxizhang
+ * @Date: 2022-04-08 11:11:47
+ * @FilePath: /practice/page/resize.html
+ * @Description: 
+ * @LastEditors: maxizhang
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>resize</title>
+    <script src="https://qzonestyle.gtimg.cn/qzone/qzact/act/external/weishi/ugactivity/eruda.js"></script>
+    <script>window.eruda.init();</script>
+</head>
+<body>
+    <div class="flex-box">
+       <div class="left" id="aaa">asda</div>
+       <div class="content">asdasasdas</div>
+       <div class="right">sds</div> 
+    </div>
+    <div class="createElement">
+
+    </div>
+    <script>
+        window.addEventListener('resize', function(){
+            console.log('resize window.innerWidth', window.innerWidth)
+        });
+        window.addEventListener('orientationchange', function(){
+            console.log('orientationchange window.innerWidth', window.innerWidth)
+        });
+    </script>
+</body>
+</html>

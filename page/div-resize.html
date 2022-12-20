@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            height: 800px;
+            width: 800px;
+            background-color: aquamarine;
+            position: relative;
+        } 
+        .div-resize {
+            /* height: 50px;
+            width: 50px;
+            max-width: 500px;
+            max-height: 500px; */
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 60px;
+            right: 600px;
+            resize: both;
+            background-color: aqua;
+            overflow:auto
+        }
+
+        .div-resize::-webkit-scrollbar {
+          width: 50px; height: 50px;
+        }
+
+        .div-resize::-webkit-resizer{
+            height: 50px;
+            background-color: royalblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+
+        <div class="div-resize"></div>
+    </div>
+    
+</body>
+<script>
+    // document.querySelector('.div-resize').addEventListener('resize', function(){
+    //     console.log(111)
+    // })
+    const dom = document.querySelector('.div-resize');
+    // var observer = new MutationObserver(function(mutationsList, observer) {
+    //     console.log('callback that runs when observer is triggered');
+    //     console.log('mutationsList', mutationsList)
+    //     console.log('observer', observer)
+    // });
+    // observer.observe(dom, {attributes: true});
+
+    const ro = new ResizeObserver(res => {
+        console.log(res);// 看一下返回的东西
+    })
+
+    ro.observe(dom)
+</script>
+</html>

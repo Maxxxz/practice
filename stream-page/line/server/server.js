@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: easonzhu
  * @Date: 2019-10-28 14:33:24
- * @FilePath: /vue-ssr-demo-master/04/server/server.js
+ * @FilePath: /practice/stream-page/line/server/server.js
  */
 const Koa = require('koa');
 const Router = require('koa-router');
@@ -33,6 +33,7 @@ backendRouter.get('/index', (ctx, next) => {
   const ssrStream = renderer.renderToStream().on('data', data => {
     console.log(index++,data.toString())
   });
+  console.log('ssrStream', ssrStream)
   ctx.status = 200;
   ctx.type = 'html';
   ctx.body = ssrStream;

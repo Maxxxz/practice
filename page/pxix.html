@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>createElem</title>
+    </head>
+    <body>
+        <div class="flex-box"></div>
+        <div class="createElement"></div>
+        <script src="./../js/pixi.js"></script>
+        <script>
+            const app = new PIXI.Application({
+                antialias: true,
+                backgroundColor: 0x1099bb,
+            });
+            document.body.appendChild(app.view);
+
+            const loader = new PIXI.Loader()
+
+            window.circle = new PIXI.Graphics();
+            circle.lineStyle(0);
+            circle.beginFill(0x66ffcc, 1);
+            circle.drawCircle(35, 35, 35).moveTo(300, 35);
+            circle.endFill();
+            // app.stage.addChild(circle);
+
+            let square = new PIXI.Graphics();
+            square.beginFill(0x660000);
+            square.drawRect(0, 0, 200, 150);
+            square.endFill();
+            // app.stage.addChild(square);
+
+            
+            loader.add({
+                name: 'test',
+                url: 'https://isee.weishi.qq.com/dianbo/hero_icon/icon_518.png'
+            }).load((loader, resources)=>{
+                console.log(111, resources)
+                const sprite = new PIXI.Sprite( resources.test.texture )
+                sprite.width = 70;
+                sprite.height = 70;
+                // sprite.x = 70;
+                sprite.zIndex = 2
+                window.container = new PIXI.Container();
+                container.x = 100;
+                container.y = 0;
+                container.addChild(square)
+                container.addChild(sprite)
+                // container.width = 70;
+                // container.height = 70;
+                sprite.mask = circle;
+                
+                circle.setParent(container)
+                app.stage.addChild(container)
+                
+            })
+
+            // app.stage.addChild(square);
+
+            
+
+            // square.mask = transparentmask(circle);
+
+            // function transparentmask(circle) {
+            //     //fresh white sprite
+            //     let sprite = new PIXI.Sprite(PIXI.Texture.WHITE);
+            //     sprite.tint = 0xffffff;
+            //     sprite.x = 0;
+            //     sprite.y = 0;
+            //     sprite.width = 200;
+            //     sprite.height = 150;
+            //     //this will do the trick
+            //     sprite.blendMode = PIXI.BLEND_MODES.SRC_IN;
+
+            //     let originalContainer = new PIXI.Container();
+            //     originalContainer.addChild(circle);
+            //     originalContainer.addChild(sprite);
+            //     let genTexture = app.renderer.generateTexture(
+            //         originalContainer
+            //     );
+            //     return new PIXI.Sprite(genTexture);
+            // }
+        </script>
+    </body>
+</html>

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: easonzhu
  * @Date: 2018-06-22 19:37:20
- * @FilePath: /test/app.js
+ * @FilePath: /practice/stream-page/bigpipe/app.js
  */
 const { resolve } = require('path');
 const Koa = require('koa');
@@ -27,54 +27,6 @@ app.use((ctx) => {
 
   // 定义输出的html layout
   bigpipe.defineLayout('/test.html');
-
-  // 定义片段，这里我们使用promise的方式模拟http请求
-  // bigpipe.definePagelets([
-  //   {
-  //     id: 'A',
-  //     tpl: '/article.handlebars',
-  //     getData: () => {
-  //       return new Promise((resolve, reject) => {
-  //         setTimeout(() => {
-  //           resolve(a)
-  //         }, 3000)
-  //       })
-  //     }
-  //   },
-  //   {
-  //     id: 'B',
-  //     tpl: '/article.handlebars',
-  //     getData: () => {
-  //       return new Promise((resolve, reject) => {
-  //         setTimeout(() => {
-  //           resolve(b)
-  //         }, 2000)
-  //       })
-  //     }
-  //   },
-  //   {
-  //     id: 'C',
-  //     tpl: '/article.handlebars',
-  //     getData: () => {
-  //       return new Promise((resolve, reject) => {
-  //         setTimeout(() => {
-  //           resolve(c)
-  //         }, 0)
-  //       })
-  //     }
-  //   },
-  //   {
-  //     id: 'D',
-  //     tpl: '/article.handlebars',
-  //     getData: () => {
-  //       return new Promise((resolve, reject) => {
-  //         setTimeout(() => {
-  //           resolve(d)
-  //         }, 1000)
-  //       })
-  //     }
-  //   }
-  // ]);
 
   bigpipe.render();
 })
