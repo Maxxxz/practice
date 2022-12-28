@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observer</title>
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+         }
+        .menu {
+            float: left;
+            background-color: yellowgreen;
+            padding: 10px ;
+            margin-right: 10px;
+        }
+        .menu li {
+            padding: 5px 0;
+        }
+        .bread {
+            padding: 10px;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul class="menu">
+            <li>首页</li>
+            <li>共享</li>
+            <li>渠道</li>
+            <li>自然</li>
+        </ul>
+        <div>
+            <div class="bread">bread</div>
+            <div class="content">content</div>
+        </div>
+    </div>
+    <script>
+        // 观察者
+        class Observer {
+            constructor(name){
+                this.name = name
+            }
+
+            update(content){
+                console.log('update', this.name, content)
+                document.querySelector(this.name).innerText = content
+            }
+        }
+
+        // 目标
+        class Subject {
+            constructor(list){
+                this.list = list
+            }
+
+            notify(content){
+                this.list.forEach(item => {
+                    item.update(content);
+                });
+            }
+        }
+
+        const ob1 = new Observer('.bread')
+        const ob2 = new Observer('.content')
+        const subj = new Subject([ob1, ob2])
+        
+        document.querySelectorAll('.menu li').forEach(function(elem, index){
+            elem.addEventListener('click', function(){
+            console.log(this, this.innerText)
+            subj.notify(this.innerText);
+         })
+        })
+    </script>
+</body>
+</html>

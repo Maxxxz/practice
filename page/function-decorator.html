@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        Function.prototype.before = function(fn){
+           const _this = this; 
+            return function(){
+                fn(arguments);
+                return _this.apply(this, arguments)
+            }
+        }
+
+        Function.prototype.after = function(fn){
+           const _this = this; 
+            return function(){
+                const val = _this.apply(this, arguments);
+                fn(arguments);
+                return val
+            }
+        }
+
+        function ajax(url, methods, params){
+            console.log('ajax')
+        }
+
+        // 要针对after/before的返回函数立刻调用才会生效
+        ajax.after(function(){
+            console.log('after', this, arguments)
+        })(('a', 'b', {}));
+        
+        // 必须连在一起调用before和after才能同时生效，因为after本质上是挂载在before reutrn的匿名函数（匿名函数做了beforefn和原始fn的调用）里，而不是ajax上
+        ajax.before(function(){
+            console.log('before', this, arguments)
+        }).after(function(){
+            console.log('after', this, arguments)
+        })('a', 'b', {});
+
+        // 分开之后怎对ajax做设置和调用，before和after不会生效
+        ajax.before(function(){
+            console.log('before', this, arguments)
+        })
+        ajax.after(function(){
+            console.log('after', this, arguments)
+        });
+        ajax(('a', 'b', {}))
+        
+    </script>
+</body>
+</html>
