@@ -35,7 +35,7 @@
         </ul>
         <div>
             <div class="bread">bread</div>
-            <div class="content">content</div>
+            <div class="header">header</div>
         </div>
     </div>
     <script>
@@ -65,7 +65,7 @@
         }
 
         const ob1 = new Observer('.bread')
-        const ob2 = new Observer('.content')
+        const ob2 = new Observer('.header')
         const subj = new Subject([ob1, ob2])
         
         document.querySelectorAll('.menu li').forEach(function(elem, index){

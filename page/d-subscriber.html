@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>subscriber</title>
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+         }
+        .menu {
+            float: left;
+            background-color: yellowgreen;
+            padding: 10px ;
+            margin-right: 10px;
+        }
+        .menu li {
+            padding: 5px 0;
+        }
+        .bread {
+            padding: 10px;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul class="menu">
+            <li>首页</li>
+            <li>共享</li>
+            <li>渠道</li>
+            <li>自然</li>
+        </ul>
+        <div>
+            <div class="bread">bread</div>
+            <div class="header">header</div>
+        </div>
+    </div>
+    <script>
+        class Subscriber {
+            constructor(){
+                this.eventMap = {}
+            }
+
+            watch(eventName, cb){
+                if(!this.eventMap[eventName]){
+                    this.eventMap[eventName] = []
+                }
+                this.eventMap[eventName].push(cb)
+            }
+
+            notify(eventName, ...args){
+                if(!this.eventMap[eventName]){
+                    console.log('no watch list')
+                    return ''
+                }
+                this.eventMap[eventName].forEach((fn)=>{
+                    fn(...args)
+                })
+            }
+        }
+
+        const sub = new Subscriber();
+        sub.watch('menuClick', function(txt){
+            document.querySelector('.bread').innerText = txt
+        })
+
+        sub.watch('menuHover', function(txt){
+            document.querySelector('.header').innerText = txt
+        })
+        
+        document.querySelectorAll('.menu li').forEach(function(elem, index){
+            elem.addEventListener('click', function(){
+                sub.notify('menuClick', this.innerText);
+            })
+
+            elem.addEventListener('mouseover', function(){
+                sub.notify('menuHover', this.innerText);
+            })
+        })
+    </script>
+</body>
+</html>
