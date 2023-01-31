@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .to-right-arrow {
+            float: left;
+            position: relative;
+            display: inline-block;
+            box-sizing: border-box;      
+            width: 0; 
+            height: 0; 
+            border: 12px solid transparent;
+            border-bottom-color: #000;
+            border-right-color: #000;
+            margin: 0;
+        }
+        .to-right-arrow::after {
+            content: "";
+            position: absolute;
+            right: -12px;
+            bottom: -12px;
+            z-index: 2;
+            display: inline-block;
+            box-sizing: border-box;      
+            width: 0; 
+            height: 0; 
+            border: 11px solid transparent;
+            border-bottom-color: #fff;
+            border-right-color: #fff;
+            margin: 0;
+        }
+        .line {
+            display: block;
+            height: 1px;
+            width: 30px;
+            background-color: #000;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="to-right-arrow"></div>
+    <div class="line"></div>
+</body>
+</html>
