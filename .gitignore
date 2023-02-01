@@ -1,3 +1,4 @@
 node_modules
 /spider/screenshot/*.png
 my-taro-app
+rust/**/target
