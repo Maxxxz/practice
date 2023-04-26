@@ -57,7 +57,8 @@
             var mediaSource = e.target;
             // addSourceBuffer根据传入的mineCodes，创建一个新的 SourceBuffer 并添加到 MediaSource 的 SourceBuffers 列表
             var sourceBuffer = mediaSource.addSourceBuffer(mineCodes); 
-            var videoUrl = 'http://vwxcj.weishi.qq.com/vwxcj.weishi.qq.com/gzc_5622_1047_0bc3dmabwaaahaalyfrh6bsbogyedmnqag2a.f61.mp4?dis_k=1a912444c9ddcb9605ef65c24a3e959e&dis_t=1681437739&fromtag=0&personid=h5&pver=8.92.0&wsadapt=h5_0414100219__193424055_0_0_0_27_26_0_0_0_0_0&qua=';
+            // var videoUrl = 'http://vwxcj.weishi.qq.com/vwxcj.weishi.qq.com/gzc_5622_1047_0bc3dmabwaaahaalyfrh6bsbogyedmnqag2a.f61.mp4?dis_k=1a912444c9ddcb9605ef65c24a3e959e&dis_t=1681437739&fromtag=0&personid=h5&pver=8.92.0&wsadapt=h5_0414100219__193424055_0_0_0_27_26_0_0_0_0_0&qua=';
+            var videoUrl = 'http://sqimg.qq.com/qq_product_operations/test/mov_bbb.mp4'
             fetch(videoUrl)
                 .then(function(response) {
                     console.log('fetch response', response)

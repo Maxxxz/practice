@@ -49,6 +49,8 @@
   },
   "dependencies": {
     "@dcloudio/types": "^2.5.10",
+    "@ffmpeg/core": "^0.11.0",
+    "@ffmpeg/ffmpeg": "^0.11.6",
     "heapdump": "^0.3.15",
     "koa-session": "^5.10.1",
     "webpack": "^4.29.6"

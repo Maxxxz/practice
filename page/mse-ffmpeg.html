@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="origin-trial" content="AqauocduanXBCr/PrIUKnr+NKt4OSGHfouRoDkAkDSgCqOZnN5RWrO96AZsUXaP3F+rvuHFAgpOhH7UHMEgAugcAAABgeyJvcmlnaW4iOiJodHRwOi8vMTI3LjAuMC4xOjIyMzMiLCJmZWF0dXJlIjoiVW5yZXN0cmljdGVkU2hhcmVkQXJyYXlCdWZmZXIiLCJleHBpcnkiOjE3MDk4NTU5OTl9">
+    <title>mse</title>
+</head>
+<body>
+    <!-- <div class="video-box">
+        <video controls id="mse-video" src="" ></video>
+    </div> -->
+
+    <h3>Upload a video to transcode to mp4 (x264) and play!</h3>
+    <video id="output-video" controls></video><br/>
+    <input type="file" id="uploader">
+    <p id="message"></p>
+
+    <!-- <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.9.5/dist/ffmpeg.min.js"></script> -->
+    <script src="http://127.0.0.1:2233/js/ffmpeg.min.js"></script>
+
+    <script>
+        const { createFFmpeg, fetchFile } = FFmpeg;
+        const ffmpeg = createFFmpeg({ 
+            log: true, 
+            corePath: 'http://127.0.0.1:2233/js/ffmpeg-core.js',  
+        });
+  
+        const transcode = async ({ target: { files } }) => {
+          const message = document.getElementById('message');
+          const { name } = files[0];
+          message.innerHTML = 'Loading ffmpeg-core.js';
+          await ffmpeg.load();
+          ffmpeg.FS('writeFile', name, await fetchFile(files[0]));
+          message.innerHTML = 'Start transcoding';
+          await ffmpeg.run('-i', name,  'output.mp4');
+          message.innerHTML = 'Complete transcoding';
+          const data = ffmpeg.FS('readFile', 'output.mp4');
+  
+          const video = document.getElementById('output-video');
+          video.src = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
+        }
+
+        const elm = document.getElementById('uploader');
+        elm.addEventListener('change', transcode);
+        
+      </script>
+
+    <!-- <script> 
+        const { createFFmpeg } = FFmpeg;
+        const ffmpeg = createFFmpeg({
+            corePath: './../js/ffmpeg-core.js',
+        });
+        var video = document.querySelector('#mse-video');
+        // var mineCodes = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+        // var mineCodes = 'video/mp4; codecs="hev1.1.6.L93.B0, mp4a.40.5';
+        var mineCodes = 'video/mp4; codecs="hvc1.1.6.L120.90, mp4a.40.2'; // hvc1.1.6.L120.90,mp4a.40.2
+
+        if (window.MediaSource && MediaSource.isTypeSupported(mineCodes)) { 
+            console.log('support')
+            // 检测当前环境是否支持 MediaSource API以及是否支持此mineCodes
+            var mediaSource = new MediaSource();
+            // 使用 mediaSource对象创建blob url，并赋给video.src
+            video.src = URL.createObjectURL(mediaSource);
+            mediaSource.addEventListener('sourceopen', sourceOpen); 
+        } else {
+            console.log("The Media Source Extensions API is not supported.")
+        }
+
+        function sourceOpen(e) {
+            console.log('sourceOpen', e.target)
+            // URL.revokeObjectURL 主动释放引用
+            URL.revokeObjectURL(video.src);
+
+            var mediaSource = e.target;
+            // addSourceBuffer根据传入的mineCodes，创建一个新的 SourceBuffer 并添加到 MediaSource 的 SourceBuffers 列表
+            var sourceBuffer = mediaSource.addSourceBuffer(mineCodes); 
+            // var videoUrl = 'http://vwxcj.weishi.qq.com/vwxcj.weishi.qq.com/gzc_5622_1047_0bc3dmabwaaahaalyfrh6bsbogyedmnqag2a.f61.mp4?dis_k=1a912444c9ddcb9605ef65c24a3e959e&dis_t=1681437739&fromtag=0&personid=h5&pver=8.92.0&wsadapt=h5_0414100219__193424055_0_0_0_27_26_0_0_0_0_0&qua=';
+            var videoUrl = 'http://sqimg.qq.com/qq_product_operations/test/mov_bbb.mp4'
+
+            fetch(videoUrl)
+                .then(function(response) {
+                    console.log('fetch response', response)
+                    return response.arrayBuffer();
+                })
+                .then(async function(arrayBuffer) {
+                    sourceBuffer.addEventListener('updateend', function(e) {
+                        console.log('sourceBuffer updateend', sourceBuffer.updating, mediaSource.readyState)
+                        if (!sourceBuffer.updating && mediaSource.readyState === 'open') {
+                            console.warn('endStream')
+                            // 数据添加完毕后，调用endOfStream结束当前流
+                            mediaSource.endOfStream(); 
+                        }
+                    });
+                    sourceBuffer.addEventListener('error', function(e){
+                        console.log('sourceBuffer error', e)
+                    })
+                    console.log('arrayBuffer', arrayBuffer);
+                    const mime = await getMimeType(arrayBuffer);
+                    console.log('mime', mime)
+                    // 将媒体数据添加到sourceBuffer中
+                    sourceBuffer.appendBuffer(arrayBuffer); 
+
+                   
+                });
+        }
+    </script>
+</body> -->
+</html>
