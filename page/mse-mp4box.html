@@ -46,6 +46,7 @@
             function fetchAB(url, cb) {
                 var xhr = new XMLHttpRequest;
                 xhr.open('get', url);
+                // xhr.setRequestHeader('Range', 'bytes=0-100240')
                 xhr.responseType = 'arraybuffer';
                 xhr.onprogress = function (event) {
                     if (event.lengthComputable) {
@@ -54,6 +55,7 @@
                     }
                 }
                 xhr.onload = function () {
+                    console.log('xhr.onload', xhr.response)
                     cb(xhr.response);
                 };
                 xhr.send();
@@ -108,7 +110,7 @@
                     }
 
                 }
-                var b=null;
+    
                 mp4box.onSegment = function (id, sb, buffer, sampleNum) {   //生成一个片都会触发一次
                     console.log('onSegment')
                     console.log('>>>'+id+'>>>'+sampleNum);
@@ -116,10 +118,13 @@
                     console.log('buffer', buffer)
                     sb.appendBuffer(buffer);
                 }
+
                 fetchAB(url, function (buffer) {
+                    console.log('cb', buffer)
                     buffer.fileStart = 0
-                    mp4box.appendBuffer(buffer)
-                    mp4box.flush();
+                    // mp4box.appendBuffer(buffer)
+                    // mp4box.flush();
+                    video.src = window.URL.createObjectURL(buffer)
                 });
             }
 
