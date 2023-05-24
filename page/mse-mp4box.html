@@ -38,41 +38,51 @@
 
             var video = document.getElementById('j-video');
             var sourceBufferArr =[];
-            var assetURL = 'http://sqimg.qq.com/qq_product_operations/test/mov_bbb.mp4';
+            // var assetURL = 'http://sqimg.qq.com/qq_product_operations/test/mov_bbb.mp4';
         //   var assetURL = 'http://vwxcj.weishi.qq.com/vwxcj.weishi.qq.com/gzc_3722_1047_0bc3fqcqcaafu4al2qbzjbsbelaeaewakaka.f204310.mp4?dis_k=3bd2bff359856812d329a8e8e535ae2c&dis_t=1682474080&fromtag=0&personid=h5&pver=8.93.1&wsadapt=h5_0426095440__196752183_0_0_0_27_12_0_0_0_0_0&qua='
-
+            var assetURL = 'http://127.0.0.1:2233/assets/video2.mp4';
 
             //http加载模块
             function fetchAB(url, cb) {
-                var xhr = new XMLHttpRequest;
-                xhr.open('get', url);
-                // xhr.setRequestHeader('Range', 'bytes=0-100240')
-                xhr.responseType = 'arraybuffer';
-                xhr.onprogress = function (event) {
-                    if (event.lengthComputable) {
-                        var loaded = parseInt(event.loaded / event.total * 100) + "%";
-                        document.getElementById('pros0').innerText = 'demo视频加载进度：'+loaded;
-                    }
-                }
-                xhr.onload = function () {
-                    console.log('xhr.onload', xhr.response)
-                    cb(xhr.response);
-                };
-                xhr.send();
+                // var xhr = new XMLHttpRequest;
+                // xhr.open('get', url);
+                // xhr.setRequestHeader('Range', 'bytes=0-63000')
+                // xhr.responseType = 'arraybuffer';
+                // xhr.onprogress = function (event) {
+                //     if (event.lengthComputable) {
+                //         var loaded = parseInt(event.loaded / event.total * 100) + "%";
+                //         document.getElementById('pros0').innerText = 'demo视频加载进度：'+loaded;
+                //     }
+                // }
+                // xhr.onload = function () {
+                //     console.log('xhr.onload', xhr.response)
+                //     cb(xhr.response);
+                // };
+                // xhr.send();
+
+                fetch(url, {
+                    headers: { Range: `bytes=${0}-${ 10 * 300 * 1024}` },
+                })
+                .then(async (res) => {
+                    console.log('fetch response', res);
+                    const [, , end, total] = res.headers.get('Content-Range')?.match(/(\d+)-(\d+)\/(\d+)/);
+                    console.log('end, total', end, total)
+                    const buffer = await res.arrayBuffer()
+                    return cb(buffer);
+                })
             };
 
 
             //buffer解析模块
             function dealBuffer(url){
                 var mp4box = new MP4Box();
+                // var mp4box = MP4Box.createFile();
                 mp4box.onMoovStart = function (info) {
-                    console.log("Starting to receive File Information", info);
+                    console.log("mp4box Starting to receive File Information", info);
                 }
 
                 mp4box.onReady = function (info) {
-                    console.log("onReady info", info)
-                    console.log('onReady info.tracks', info.tracks);
-                    console.log('info.duration', info.duration)
+                    console.log("mp4box onReady info", info)
                     mediaSource.duration = Math.floor(info.duration / 1000);
 
                     for (var i = 0; i < info.tracks.length; i++) {
@@ -84,7 +94,7 @@
                             try{
                                 var sb = mediaSource.addSourceBuffer(mime);
                                 sourceBufferArr.push(sb)
-                                mp4box.setSegmentOptions(track.id, sb, { nbSamples: 1000 });
+                                mp4box.setSegmentOptions(track.id, sb);  // , { nbSamples: 1000 }
                             }catch(e){
                                 document.getElementById('pros0').style.display = 'none';
                                 document.getElementById('btn').style.display = 'none';
@@ -112,7 +122,7 @@
                 }
     
                 mp4box.onSegment = function (id, sb, buffer, sampleNum) {   //生成一个片都会触发一次
-                    console.log('onSegment')
+                    console.log('mp4box onSegment')
                     console.log('>>>'+id+'>>>'+sampleNum);
                     console.log('sb', sb)
                     console.log('buffer', buffer)
@@ -121,10 +131,15 @@
 
                 fetchAB(url, function (buffer) {
                     console.log('cb', buffer)
+                    // const res = new Int16Array(buffer);
+                    // console.log('Int8Array res', res)
+                    // res.forEach((item)=>{
+                    //     item
+                    // })
                     buffer.fileStart = 0
-                    // mp4box.appendBuffer(buffer)
-                    // mp4box.flush();
-                    video.src = window.URL.createObjectURL(buffer)
+                    mp4box.appendBuffer(buffer)
+                    mp4box.flush();
+                    // video.src = window.URL.createObjectURL(buffer)
                 });
             }
 
