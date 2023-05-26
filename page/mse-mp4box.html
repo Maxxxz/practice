@@ -40,7 +40,7 @@
             var sourceBufferArr =[];
             // var assetURL = 'http://sqimg.qq.com/qq_product_operations/test/mov_bbb.mp4';
         //   var assetURL = 'http://vwxcj.weishi.qq.com/vwxcj.weishi.qq.com/gzc_3722_1047_0bc3fqcqcaafu4al2qbzjbsbelaeaewakaka.f204310.mp4?dis_k=3bd2bff359856812d329a8e8e535ae2c&dis_t=1682474080&fromtag=0&personid=h5&pver=8.93.1&wsadapt=h5_0426095440__196752183_0_0_0_27_12_0_0_0_0_0&qua='
-            var assetURL = 'http://127.0.0.1:2233/assets/video2.mp4';
+            var assetURL = 'http://127.0.0.1:2233/assets/demo_dashinit.mp4';
 
             //http加载模块
             function fetchAB(url, cb) {
@@ -61,7 +61,7 @@
                 // xhr.send();
 
                 fetch(url, {
-                    headers: { Range: `bytes=${0}-${ 10 * 300 * 1024}` },
+                    headers: { Range: `bytes=${0}-${ 2 * 1024 * 1024}` },
                 })
                 .then(async (res) => {
                     console.log('fetch response', res);
@@ -109,7 +109,7 @@
                     for (var i = 0; i < initSegs.length; i++) {
                         var sb = initSegs[i].user;
                         sb.addEventListener("updateend", function (e) {
-                            console.log('updateend')
+                            console.log('updateend', video.buffered.length);
                             pendingInits--;
                             if (pendingInits === 0) {
                                 mp4box.start();
