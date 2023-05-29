@@ -40,7 +40,8 @@
             var sourceBufferArr =[];
             // var assetURL = 'http://sqimg.qq.com/qq_product_operations/test/mov_bbb.mp4';
         //   var assetURL = 'http://vwxcj.weishi.qq.com/vwxcj.weishi.qq.com/gzc_3722_1047_0bc3fqcqcaafu4al2qbzjbsbelaeaewakaka.f204310.mp4?dis_k=3bd2bff359856812d329a8e8e535ae2c&dis_t=1682474080&fromtag=0&personid=h5&pver=8.93.1&wsadapt=h5_0426095440__196752183_0_0_0_27_12_0_0_0_0_0&qua='
-            var assetURL = 'http://127.0.0.1:2233/assets/demo_dashinit.mp4';
+            // var assetURL = 'http://127.0.0.1:2233/assets/demo_dashinit.mp4';
+            var assetURL = 'http://127.0.0.1:2233/assets/demo.mp4';
 
             //http加载模块
             function fetchAB(url, cb) {
@@ -61,13 +62,14 @@
                 // xhr.send();
 
                 fetch(url, {
-                    headers: { Range: `bytes=${0}-${ 2 * 1024 * 1024}` },
+                    headers: { Range: `bytes=${0}-${ 5 * 1024 * 1024}` },
                 })
                 .then(async (res) => {
                     console.log('fetch response', res);
                     const [, , end, total] = res.headers.get('Content-Range')?.match(/(\d+)-(\d+)\/(\d+)/);
                     console.log('end, total', end, total)
-                    const buffer = await res.arrayBuffer()
+                    const buffer = await res.arrayBuffer();
+                    console.log('fetch buffer', buffer)
                     return cb(buffer);
                 })
             };
@@ -123,9 +125,9 @@
     
                 mp4box.onSegment = function (id, sb, buffer, sampleNum) {   //生成一个片都会触发一次
                     console.log('mp4box onSegment')
-                    console.log('>>>'+id+'>>>'+sampleNum);
-                    console.log('sb', sb)
-                    console.log('buffer', buffer)
+                    // console.log('>>>'+id+'>>>'+sampleNum);
+                    // console.log('sb', sb)
+                    // console.log('buffer', buffer)
                     sb.appendBuffer(buffer);
                 }
 

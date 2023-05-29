@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-itunes-app" content="app-id=444934666">
+	<meta name="format-detection" content="telephone=no">
+    <title></title>
+    <style type="text/css">
+    	/*手QH5页面通用css基础样式*/
+    	html,body, div, p, ol, ul, li, table, tbody, tr, td, textarea,
+        form, input, h1, h2, h3, h4, h5, dl, dt, dd, img, iframe, header, nav,
+        section, article, footer, figure, figcaption, menu, a, p,button {padding: 0;margin: 0; -webkit-user-select: none; -moz-user-select: none; -webkit-text-size-adjust: none;-webkit-touch-callout: none;}
+        html ,body{ width: 100%; height: 100%;}
+        body { font-size: 62.5%; font: 16px "Helvetica Neue", Helvetica, STHeiTi, "\5FAE\8F6F\96C5\9ED1", sans-serif; min-width: 320px; margin: 0 auto;}
+        em{ font-style: normal;}
+        a, span { text-decoration: none;display: inline-block;}
+        a:link, a:visited{ color: #fff; text-decoration:none;}
+        a,button{outline: none; -webkit-tap-highlight-color:rgba(0,0,0,0);}
+        button{border:none; background: transparent;}
+        li {list-style: none;}
+        /*业务侧css样式*/
+    </style>	  
+</head>
+<body>
+    <video controls id="j-video" x-webkit-airplay="true" webkit-playsinline="true" preload="auto" style="width:100%;margin-top:50px;"></video>
+    <div id="pros0" style="width:100%;margin-top:30px;">视频加载进度：</div>
+    <button id="btn" onclick="play()" style="margin-top:20px;font-size:24px;color:blueviolet;">点我播放</button>
+    <div id="noTips"></div>
+    <!--业务js脚步区域-->
+    <script src="http://sqimg.qq.com/qq_product_operations/test/mp4box.all.js"></script>
+    <script type="text/javascript">
+            var video = document.getElementById('j-video');
+            var sourceBufferArr =[];
+            // var assetURL = 'http://sqimg.qq.com/qq_product_operations/test/mov_bbb.mp4';
+        //   var assetURL = 'http://vwxcj.weishi.qq.com/vwxcj.weishi.qq.com/gzc_3722_1047_0bc3fqcqcaafu4al2qbzjbsbelaeaewakaka.f204310.mp4?dis_k=3bd2bff359856812d329a8e8e535ae2c&dis_t=1682474080&fromtag=0&personid=h5&pver=8.93.1&wsadapt=h5_0426095440__196752183_0_0_0_27_12_0_0_0_0_0&qua='
+            var assetURL = 'http://127.0.0.1:2233/assets/demo_dashinit.mp4';
+
+            //http加载模块
+            function fetchAB(url) {
+                return fetch(url, {
+                    headers: { Range: `bytes=${0}-${ 1 * 1024 * 1024}` },
+                })
+                .then(async (res) => {
+                    const [, , end, total] = res.headers.get('Content-Range')?.match(/(\d+)-(\d+)\/(\d+)/);
+                    console.log('end, total', end, total)
+                    const buffer = await res.arrayBuffer();
+                    console.log('fetch buffer', buffer)
+                    return buffer;
+                })
+            };
+
+            
+            class MsePlayer {
+                constructor(url){
+                    this.mediaSource = null;
+                    this.sourceBuffer = null;
+                    this.video = document.getElementById('j-video');
+                    this.downLoadRange = 1024 * 1024 * 1; // 分段大小
+                    this.mp4box = null;
+                    this.url = url;
+                    this.mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+
+                    this.init();
+                }
+
+                init(){
+                    this.initMediaSource();
+                }
+
+                initMediaSource(){
+                    //关联MSE到video
+                    if(window.MediaSource  && MediaSource.isTypeSupported(this.mimeCodec)){
+                        this.mediaSource = new MediaSource();
+                        console.log('init', this.mediaSource)
+                        this.video.src = window.URL.createObjectURL(this.mediaSource); 
+                        this.mediaSource.addEventListener('sourceopen', this.sourceOpen);
+                    }else{
+                        console.error('不支持MediaSource');
+                    }
+                }
+                
+                // 支持mediasource的，开始拉取数据
+                sourceOpen = (...args) => {
+                    console.log('sourceOpen', ...args, this.mediaSource)
+                    const sourceBuffer = this.mediaSource.addSourceBuffer(this.mimeCodec);
+                    console.log('sourceBuffer', sourceBuffer);
+
+                    this.sourceBuffer = sourceBuffer;
+
+                    // await this.initVideoLength();
+                    this.initVideo();
+                }
+
+                async initVideo(){
+                    const initData = await fetchAB(this.url);
+                    this.sourceBuffer.appendBuffer(initData);
+
+                    this.sourceBuffer.addEventListener("updateend", this.updateFunct, false);
+                }
+
+                updateFunct = async () => {
+                    console.log('updateFunct', this.video.buffered.length)
+                    if (this.video.buffered.length) {
+                         // 视频开始能播放后，监听视频的timeupdate来决定是否继续请求数据
+                        this.sourceBuffer.removeEventListener("updateend", this.updateFunct);
+                        // this.bindVideoEvent();
+                    } else {
+                        console.log('need load more')
+                        // // 继续加载初始化数据，直到视频能够播放，才能触发timeupdate事件
+                        // const initRange = this.calculateRange();
+                        // const initData = await this.fetchVideo(initRange);
+                        // // 更新下载的当前片段，方便计算下一次拉取
+                        // this.updateSegmentStart(initRange);
+
+                        // this.sourceBuffer.appendBuffer(initData);
+                    }
+                }
+
+                play(){
+                    this.video.currentTime = 0;
+                    this.video.play()
+                }
+            }   
+
+            const player = new MsePlayer(assetURL);
+            function play(){
+                player.play();
+            }
+	</script>
+</body>
+</html>
