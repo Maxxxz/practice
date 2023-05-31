@@ -70,8 +70,6 @@
 
                 init(){
                     this.initMediaSource();
-                    this.initMp4box();
-                    this.fetachData();
                 }
 
                 initMp4box(){
@@ -89,7 +87,7 @@
 
                     for (var i = 0; i < info.tracks.length; i++) {
                         var track = info.tracks[i];
-                        this.isSupport(track)
+                        this.setSegmentByTrack(track)
                     }
                     // console.log('onReady sourceBufferArr', sourceBufferArr)
                     var initSegs = this.mp4box.initializeSegmentation();
@@ -98,7 +96,7 @@
                     for (var i = 0; i < initSegs.length; i++) {
                         var sourceBuffer = initSegs[i].user;
                         sourceBuffer.addEventListener("updateend", (e)  => {
-                            console.log('updateend', this.video.buffered.length);
+                            console.log('updateend', this.video);
                             pendingInits--;
                             if (pendingInits === 0) {
                                 this.mp4box.start();
@@ -119,7 +117,7 @@
                     sb.appendBuffer(buffer);
                 }
 
-                isSupport(track){
+                setSegmentByTrack(track){
                     var mime = 'video/mp4; codecs=\"' + track.codec + '\"';
                     console.log('mime', mime)
                     console.log('track.type id', track.type, track.id)
@@ -156,6 +154,8 @@
                 // 支持mediasource的，开始拉取数据
                 sourceOpen = (...args) => {
                     console.log('sourceOpen', ...args)
+                    this.initMp4box();
+                    this.fetachData();
                 }
 
                 updateFunct = async () => {
