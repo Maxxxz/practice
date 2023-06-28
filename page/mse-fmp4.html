@@ -37,7 +37,8 @@
             var sourceBufferArr =[];
             // var assetURL = 'http://sqimg.qq.com/qq_product_operations/test/mov_bbb.mp4';
         //   var assetURL = 'http://vwxcj.weishi.qq.com/vwxcj.weishi.qq.com/gzc_3722_1047_0bc3fqcqcaafu4al2qbzjbsbelaeaewakaka.f204310.mp4?dis_k=3bd2bff359856812d329a8e8e535ae2c&dis_t=1682474080&fromtag=0&personid=h5&pver=8.93.1&wsadapt=h5_0426095440__196752183_0_0_0_27_12_0_0_0_0_0&qua='
-            var assetURL = 'http://127.0.0.1:2233/assets/demo_dashinit.mp4';
+            // var assetURL = 'http://127.0.0.1:2233/assets/demo.mp4';   // mp4
+            var assetURL = 'http://127.0.0.1:2233/assets/demo_dashinit.mp4';   // fmp4
 
             //http加载模块
             function fetchAB(url) {
@@ -48,7 +49,7 @@
                     const [, , end, total] = res.headers.get('Content-Range')?.match(/(\d+)-(\d+)\/(\d+)/);
                     console.log('end, total', end, total)
                     const buffer = await res.arrayBuffer();
-                    console.log('fetch buffer', buffer)
+                    console.log('fetchAB buffer', buffer)
                     return buffer;
                 })
             };
@@ -75,7 +76,7 @@
                     //关联MSE到video
                     if(window.MediaSource  && MediaSource.isTypeSupported(this.mimeCodec)){
                         this.mediaSource = new MediaSource();
-                        console.log('init', this.mediaSource)
+                        console.log('init mediaSource', this.mediaSource)
                         this.video.src = window.URL.createObjectURL(this.mediaSource); 
                         this.mediaSource.addEventListener('sourceopen', this.sourceOpen);
                     }else{
@@ -85,9 +86,9 @@
                 
                 // 支持mediasource的，开始拉取数据
                 sourceOpen = (...args) => {
-                    console.log('sourceOpen', ...args, this.mediaSource)
+                    console.log('sourceOpen args', ...args)
                     const sourceBuffer = this.mediaSource.addSourceBuffer(this.mimeCodec);
-                    console.log('sourceBuffer', sourceBuffer);
+                    console.log('sourceOpen  addSourceBuffer sourceBuffer', sourceBuffer);
 
                     this.sourceBuffer = sourceBuffer;
 
@@ -97,13 +98,15 @@
 
                 async initVideo(){
                     const initData = await fetchAB(this.url);
+                    console.log('fetchAB initData', initData, new Int8Array(initData))
+                    
                     this.sourceBuffer.appendBuffer(initData);
 
                     this.sourceBuffer.addEventListener("updateend", this.updateFunct, false);
                 }
 
                 updateFunct = async () => {
-                    console.log('updateFunct', this.video.buffered.length)
+                    console.log('updateFunct buffered length', this.video.buffered.length)
                     if (this.video.buffered.length) {
                          // 视频开始能播放后，监听视频的timeupdate来决定是否继续请求数据
                         this.sourceBuffer.removeEventListener("updateend", this.updateFunct);

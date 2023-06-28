@@ -35,23 +35,41 @@
     <script type="text/javascript">
             var video = document.getElementById('j-video');
             var sourceBufferArr =[];
-            // var assetURL = 'http://sqimg.qq.com/qq_product_operations/test/mov_bbb.mp4';
-        //   var assetURL = 'http://vwxcj.weishi.qq.com/vwxcj.weishi.qq.com/gzc_3722_1047_0bc3fqcqcaafu4al2qbzjbsbelaeaewakaka.f204310.mp4?dis_k=3bd2bff359856812d329a8e8e535ae2c&dis_t=1682474080&fromtag=0&personid=h5&pver=8.93.1&wsadapt=h5_0426095440__196752183_0_0_0_27_12_0_0_0_0_0&qua='
+            // var assetURL = 'http://vwxcj.weishi.qq.com/vwxcj.weishi.qq.com/gzc_9433_1047_0bc3wqdrmaahwealnjtzdfsbbnaec22aofsa.f64.mp4?dis_k=dd9ac08bfed6786816be7fd417ed3551&dis_t=1687314091&fromtag=0&personid=h5&pver=1.0.0&wsadapt=h5_0621102131__196466735_0_0_0_27_31_0_0_0_0_0&qua=';
             // var assetURL = 'http://127.0.0.1:2233/assets/demo_dashinit.mp4';
             var assetURL = 'http://127.0.0.1:2233/assets/demo.mp4';
-
             //http加载模块
             function fetchAB(url) {
-                return fetch(url, {
-                    headers: { Range: `bytes=${0}-${ 2 * 1024 * 1024}` },
+                // return fetch(url, {
+                //     // headers: { Range: `bytes=${0}-${ 1 * 1024 * 1024}` },
+                // })
+                // .then(async (res) => {
+                //     // const [, , end, total] = res.headers.get('Content-Range')?.match(/(\d+)-(\d+)\/(\d+)/);
+                //     // console.log('end, total', end, total)
+                //     console.log('fetchAB res', res);
+                //     const buffer = await res.arrayBuffer();
+                //     console.log('fetch buffer', buffer)
+                //     return buffer;
+                // })
+
+                return new Promise((reslove)=>{
+                    var xhr = new XMLHttpRequest()
+                    xhr.open('GET', url)
+
+                    xhr.setRequestHeader('Range', `bytes=${0}-${ 0.5 * 1024 * 1024}`)
+                    xhr.responseType = 'arraybuffer';
+                    xhr.onload = function(res) {
+                        console.log('onload', xhr.response)
+                        reslove(xhr.response)
+                    }
+                    xhr.onerror = function() {}
+                    function updateProgress (event) {
+                        console.log('onprogress', event, xhr.response)
+                    }
+                    xhr.onprogress = updateProgress; //下载的progress事件
+                    xhr.send();
                 })
-                .then(async (res) => {
-                    const [, , end, total] = res.headers.get('Content-Range')?.match(/(\d+)-(\d+)\/(\d+)/);
-                    console.log('end, total', end, total)
-                    const buffer = await res.arrayBuffer();
-                    console.log('fetch buffer', buffer)
-                    return buffer;
-                })
+
             };
 
             
@@ -77,14 +95,17 @@
                     this.mp4box.onMoovStart = function (info) {
                         console.log("mp4box Starting to receive File Information", info);
                     }
-                    this.mp4box.onReady = this.mp4boxReady
+                    this.mp4box.onReady = this.mp4boxReady  //  callback is called when the the 'moov' box has been parse
                     this.mp4box.onSegment = this.mp4boxOnSegment
+                    this.mp4box.onSamples = function (id, user, samples) {
+                        console.log('onSamples', id, user, samples)
+                    }
                 }
 
                 mp4boxReady = (info)=>{
                     console.log("mp4box onReady info", info)
                     this.mediaSource.duration = Math.floor(info.duration / 1000);
-
+                    console.log('getInfo', this.mp4box.getInfo())
                     for (var i = 0; i < info.tracks.length; i++) {
                         var track = info.tracks[i];
                         this.setSegmentByTrack(track)
@@ -96,36 +117,28 @@
                     for (var i = 0; i < initSegs.length; i++) {
                         var sourceBuffer = initSegs[i].user;
                         sourceBuffer.addEventListener("updateend", (e)  => {
-                            console.log('updateend', this.video);
+                            // console.log('updateend', this.video);
                             pendingInits--;
                             if (pendingInits === 0) {
                                 this.mp4box.start();
                             }
+                            this.updateFunct(e)
                         });
-                        console.log('initSegs[i].buffer.fileStart', initSegs[i].buffer.fileStart )
+                        console.log('initSegs[i].buffer', initSegs[i].buffer )
                         sourceBuffer.appendBuffer(initSegs[i].buffer);
                         pendingInits++;
                     }
                 }
 
-                mp4boxOnSegment = (id, sb, buffer, sampleNum) =>{
-                    //生成一个片都会触发一次
-                    console.log('mp4box onSegment')
-                    // console.log('>>>'+id+'>>>'+sampleNum);
-                    console.log('mp4boxOnSegment sb', sb)
-                    // console.log('buffer', buffer)
-                    sb.appendBuffer(buffer);
-                }
-
                 setSegmentByTrack(track){
                     var mime = 'video/mp4; codecs=\"' + track.codec + '\"';
-                    console.log('mime', mime)
-                    console.log('track.type id', track.type, track.id)
+                    console.log('setSegmentByTrack mime', mime)
+                    console.log('setSegmentByTrack track.type id', track.type, track.id)
                     if (MediaSource.isTypeSupported(mime)) {  //  && track.type=='video'
                         try{
                             var sourceBuffer = this.mediaSource.addSourceBuffer(mime);
-                             console.log('addSourceBuffer sourceBuffer', sourceBuffer)
-                            // sourceBufferArr.push(sourceBuffer)
+                            console.log('setSegmentByTrack addSourceBuffer sourceBuffer', sourceBuffer)
+  
                             this.mp4box.setSegmentOptions(
                                 track.id, 
                                 sourceBuffer, 
@@ -136,6 +149,14 @@
                             console.error(e)
                         }
                     }
+                }
+
+                mp4boxOnSegment = (id, sourceBuffer, arraryBuffer, sampleNum) =>{
+                    //生成一个片都会触发一次
+                    // console.log('>>>'+id+'>>>'+sampleNum);
+                    console.log('mp4boxOnSegment sourceBuffer', sourceBuffer, arraryBuffer)
+                    console.log('mp4boxOnSegment arraryBuffer', arraryBuffer)
+                    sourceBuffer.appendBuffer(arraryBuffer);
                 }
 
                 initMediaSource(){
@@ -162,7 +183,7 @@
                     console.log('updateFunct', this.video.buffered.length)
                     if (this.video.buffered.length) {
                          // 视频开始能播放后，监听视频的timeupdate来决定是否继续请求数据
-                        this.sourceBuffer.removeEventListener("updateend", this.updateFunct);
+                        // this.sourceBuffer.removeEventListener("updateend", this.updateFunct);
                         // this.bindVideoEvent();
                     } else {
                         console.log('need load more')
@@ -184,10 +205,10 @@
 
                 async fetachData(){
                     const initData = await fetchAB(this.url);
-                    console.log('initData', initData)
-                    initData.fileStart = 0;
+                    console.log('fetachData initData', initData, new Int8Array(initData))
+                    initData.fileStart = 0; // fileStart value of the next buffer. This is particularly useful when the moov box is not at the beginning of the file.
                     var nextBufferStart = this.mp4box.appendBuffer(initData);
-                    console.log('nextBufferStart', nextBufferStart)
+                    console.log('fetachData nextBufferStart', nextBufferStart)
                     // this.mp4box.flush();
                 }
             }   

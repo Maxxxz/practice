@@ -1,0 +1,377 @@
+demo fmp4
+
+[ftyp] size=8+16
+  major_brand = iso6
+  minor_version = 1
+  compatible_brand = iso6
+  compatible_brand = dash
+[free] size=8+61
+[moov] size=8+1245
+  [mvhd] size=12+96
+    timescale = 44100
+    duration = 0
+    duration(ms) = 0
+  [mvex] size=8+80
+    [mehd] size=12+4
+      duration = 1328142
+    [trex] size=12+20
+      track id = 1
+      default sample description index = 1
+      default sample duration = 20
+      default sample size = 0
+      default sample flags = 10000
+    [trex] size=12+20
+      track id = 2
+      default sample description index = 1
+      default sample duration = 1024
+      default sample size = 0
+      default sample flags = 2000000
+  [trak] size=8+521
+    [tkhd] size=12+80, flags=1
+      enabled = 1
+      id = 1
+      duration = 0
+      width = 852.000000
+      height = 480.000000
+    [edts] size=8+28
+      [elst] size=12+16
+        entry_count = 1
+        entry/segment duration = 0
+        entry/media time = 20
+        entry/media rate = 1
+    [mdia] size=8+385
+      [mdhd] size=12+20
+        timescale = 600
+        duration = 0
+        duration(ms) = 0
+        language = und
+      [hdlr] size=12+37
+        handler_type = vide
+        handler_name = Core Media Video
+      [minf] size=8+296
+        [vmhd] size=12+8, flags=1
+          graphics_mode = 0
+          op_color = 0000,0000,0000
+        [dinf] size=8+28
+          [dref] size=12+16
+            [url ] size=12+0, flags=1
+              location = [local to file]
+        [stbl] size=8+232
+          [stsd] size=12+152
+            entry_count = 1
+            [avc1] size=8+140
+              data_reference_index = 1
+              width = 852
+              height = 480
+              compressor = 
+              [avcC] size=8+35
+                Configuration Version = 1
+                Profile = High
+                Profile Compatibility = 0
+                Level = 31
+                NALU Length Size = 4
+                Sequence Parameter = [27 64 00 1f ac 56 c0 d8 3d e7 e6 a0 20 20 20 40]
+                Picture Parameter = [28 ee 3c b0]
+              [colr] size=8+11
+          [stts] size=12+4
+            entry_count = 0
+          [stsc] size=12+4
+            entry_count = 0
+          [stsz] size=12+8
+            sample_size = 0
+            sample_count = 0
+          [stco] size=12+4
+            entry_count = 0
+  [trak] size=8+470
+    [tkhd] size=12+80, flags=1
+      enabled = 1
+      id = 2
+      duration = 0
+      width = 0.000000
+      height = 0.000000
+    [edts] size=8+28
+      [elst] size=12+16
+        entry_count = 1
+        entry/segment duration = 0
+        entry/media time = 2112
+        entry/media rate = 1
+    [mdia] size=8+334
+      [mdhd] size=12+20
+        timescale = 44100
+        duration = 0
+        duration(ms) = 0
+        language = und
+      [hdlr] size=12+37
+        handler_type = soun
+        handler_name = Core Media Audio
+      [minf] size=8+245
+        [smhd] size=12+4
+          balance = 0
+        [dinf] size=8+28
+          [dref] size=12+16
+            [url ] size=12+0, flags=1
+              location = [local to file]
+        [stbl] size=8+185
+          [stsd] size=12+79
+            entry_count = 1
+            [mp4a] size=8+67
+              data_reference_index = 1
+              channel_count = 2
+              sample_size = 16
+              sample_rate = 44100
+              [esds] size=12+27
+                [ESDescriptor] size=2+25
+                  es_id = 0
+                  stream_priority = 0
+                  [DecoderConfig] size=2+17
+                    stream_type = 5
+                    object_type = 64
+                    up_stream = 0
+                    buffer_size = 6144
+                    max_bitrate = 48000
+                    avg_bitrate = 48000
+                    DecoderSpecificInfo = 12 08 
+                  [Descriptor:06] size=2+1
+          [stts] size=12+4
+            entry_count = 0
+          [stsc] size=12+4
+            entry_count = 0
+          [stsz] size=12+8
+            sample_size = 0
+            sample_count = 0
+          [stco] size=12+4
+            entry_count = 0
+          [sgpd] size=12+14, version=1
+            grouping_type = roll
+            default_length = 2
+            entry_count = 1
+            entries:
+              (       0) [ff ff]
+  [udta] size=8+34
+    [cprt] size=12+22
+      language = eng
+      value = {"WXVer":385881127}
+[sidx] size=12+32
+  reference_ID = 1
+  timescale = 600
+  earliest_presentation_time = 0
+  first_offset = 0
+[moof] size=8+2292
+  [mfhd] size=12+4
+    sequence number = 1
+  [traf] size=8+1492
+    [tfhd] size=12+4, flags=20000
+      track ID = 1
+    [tfdt] size=12+4
+      base media decode time = 0
+    [trun] size=12+1448, flags=e01
+      sample count = 120
+      data offset = 2308
+  [traf] size=8+768
+    [tfhd] size=12+4, flags=20000
+      track ID = 2
+    [tfdt] size=12+4
+      base media decode time = 0
+    [sbgp] size=12+16
+      grouping_type = roll
+      entry_count = 1
+    [trun] size=12+696, flags=201
+      sample count = 172
+      data offset = 413579
+[mdat] size=8+436514
+[sidx] size=12+32
+  reference_ID = 1
+  timescale = 600
+  earliest_presentation_time = 2400
+  first_offset = 0
+[moof] size=8+2280
+  [mfhd] size=12+4
+    sequence number = 2
+  [traf] size=8+1480
+    [tfhd] size=12+4, flags=20000
+      track ID = 1
+    [tfdt] size=12+4
+      base media decode time = 2400
+    [trun] size=12+1436, flags=e01
+      sample count = 119
+      data offset = 2296
+  [traf] size=8+768
+    [tfhd] size=12+4, flags=20000
+      track ID = 2
+    [tfdt] size=12+4
+      base media decode time = 176128
+    [sbgp] size=12+16
+      grouping_type = roll
+      entry_count = 1
+    [trun] size=12+696, flags=201
+      sample count = 172
+      data offset = 396788
+[mdat] size=8+418170
+[sidx] size=12+32
+  reference_ID = 1
+  timescale = 600
+  earliest_presentation_time = 4780
+  first_offset = 0
+[moof] size=8+2304
+  [mfhd] size=12+4
+    sequence number = 3
+  [traf] size=8+1504
+    [tfhd] size=12+4, flags=20000
+      track ID = 1
+    [tfdt] size=12+4
+      base media decode time = 4780
+    [trun] size=12+1460, flags=e01
+      sample count = 121
+      data offset = 2320
+  [traf] size=8+768
+    [tfhd] size=12+4, flags=20000
+      track ID = 2
+    [tfdt] size=12+4
+      base media decode time = 352256
+    [sbgp] size=12+16
+      grouping_type = roll
+      entry_count = 1
+    [trun] size=12+696, flags=201
+      sample count = 172
+      data offset = 376203
+[mdat] size=8+396062
+[sidx] size=12+32
+  reference_ID = 1
+  timescale = 600
+  earliest_presentation_time = 7200
+  first_offset = 0
+[moof] size=8+2296
+  [mfhd] size=12+4
+    sequence number = 4
+  [traf] size=8+1492
+    [tfhd] size=12+4, flags=20000
+      track ID = 1
+    [tfdt] size=12+4
+      base media decode time = 7200
+    [trun] size=12+1448, flags=e01
+      sample count = 120
+      data offset = 2312
+  [traf] size=8+772
+    [tfhd] size=12+4, flags=20000
+      track ID = 2
+    [tfdt] size=12+4
+      base media decode time = 528384
+    [sbgp] size=12+16
+      grouping_type = roll
+      entry_count = 1
+    [trun] size=12+700, flags=201
+      sample count = 173
+      data offset = 444365
+[mdat] size=8+462453
+[sidx] size=12+32
+  reference_ID = 1
+  timescale = 600
+  earliest_presentation_time = 9600
+  first_offset = 0
+[moof] size=8+2280
+  [mfhd] size=12+4
+    sequence number = 5
+  [traf] size=8+1480
+    [tfhd] size=12+4, flags=20000
+      track ID = 1
+    [tfdt] size=12+4
+      base media decode time = 9600
+    [trun] size=12+1436, flags=e01
+      sample count = 119
+      data offset = 2296
+  [traf] size=8+768
+    [tfhd] size=12+4, flags=20000
+      track ID = 2
+    [tfdt] size=12+4
+      base media decode time = 705536
+    [sbgp] size=12+16
+      grouping_type = roll
+      entry_count = 1
+    [trun] size=12+696, flags=201
+      sample count = 172
+      data offset = 347903
+[mdat] size=8+373571
+[sidx] size=12+32
+  reference_ID = 1
+  timescale = 600
+  earliest_presentation_time = 11980
+  first_offset = 0
+[moof] size=8+2304
+  [mfhd] size=12+4
+    sequence number = 6
+  [traf] size=8+1504
+    [tfhd] size=12+4, flags=20000
+      track ID = 1
+    [tfdt] size=12+4
+      base media decode time = 11980
+    [trun] size=12+1460, flags=e01
+      sample count = 121
+      data offset = 2320
+  [traf] size=8+768
+    [tfhd] size=12+4, flags=20000
+      track ID = 2
+    [tfdt] size=12+4
+      base media decode time = 881664
+    [sbgp] size=12+16
+      grouping_type = roll
+      entry_count = 1
+    [trun] size=12+696, flags=201
+      sample count = 172
+      data offset = 383488
+[mdat] size=8+403255
+[sidx] size=12+32
+  reference_ID = 1
+  timescale = 600
+  earliest_presentation_time = 14400
+  first_offset = 0
+[moof] size=8+2292
+  [mfhd] size=12+4
+    sequence number = 7
+  [traf] size=8+1492
+    [tfhd] size=12+4, flags=20000
+      track ID = 1
+    [tfdt] size=12+4
+      base media decode time = 14400
+    [trun] size=12+1448, flags=e01
+      sample count = 120
+      data offset = 2308
+  [traf] size=8+768
+    [tfhd] size=12+4, flags=20000
+      track ID = 2
+    [tfdt] size=12+4
+      base media decode time = 1057792
+    [sbgp] size=12+16
+      grouping_type = roll
+      entry_count = 1
+    [trun] size=12+696, flags=201
+      sample count = 172
+      data offset = 465178
+[mdat] size=8+486934
+[sidx] size=12+32
+  reference_ID = 1
+  timescale = 600
+  earliest_presentation_time = 16800
+  first_offset = 0
+[moof] size=8+1288
+  [mfhd] size=12+4
+    sequence number = 8
+  [traf] size=8+796
+    [tfhd] size=12+4, flags=20000
+      track ID = 1
+    [tfdt] size=12+4
+      base media decode time = 16800
+    [trun] size=12+752, flags=e01
+      sample count = 62
+      data offset = 1304
+  [traf] size=8+460
+    [tfhd] size=12+4, flags=20000
+      track ID = 2
+    [tfdt] size=12+4
+      base media decode time = 1233920
+    [sbgp] size=12+16
+      grouping_type = roll
+      entry_count = 1
+    [trun] size=12+388, flags=201
+      sample count = 95
+      data offset = 145610
+[mdat] size=8+155653
