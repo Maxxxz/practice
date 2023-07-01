@@ -38,14 +38,14 @@
             var sourceBufferArr =[];
             // var assetURL = 'http://vwxcj.weishi.qq.com/vwxcj.weishi.qq.com/gzc_9433_1047_0bc3wqdrmaahwealnjtzdfsbbnaec22aofsa.f64.mp4?dis_k=dd9ac08bfed6786816be7fd417ed3551&dis_t=1687314091&fromtag=0&personid=h5&pver=1.0.0&wsadapt=h5_0621102131__196466735_0_0_0_27_31_0_0_0_0_0&qua=';
             // var assetURL = 'http://127.0.0.1:2233/assets/demo_dashinit.mp4';
-            var assetURL = 'http://127.0.0.1:2233/assets/demo.mp4';
+            var assetURL = 'http://127.0.0.1:2233/assets/265.f70.mp4';
             //http加载模块
             function fetchAB(url) {
                 return new Promise((reslove)=>{
                     var xhr = new XMLHttpRequest()
                     xhr.open('GET', url)
 
-                    xhr.setRequestHeader('Range', `bytes=${0}-${ 1 * 1024 * 1024}`)
+                    xhr.setRequestHeader('Range', `bytes=${0}-${ 10 * 1024 * 1024}`)
                     xhr.responseType = 'arraybuffer';
                     xhr.onload = function(res) {
                         console.log('onload', xhr.response)
@@ -117,9 +117,22 @@
                     console.log('parsedFile',  parsedFile);
                     var stcos      = parsedFile.fetchAll('stco');   
                     console.log('stcos',  stcos);
+                    stcos.forEach(stco => {
+                        const res = ReadBig32(stco._data, 0)
+                        console.log('res', res)
+                    });
                     // console.log('utf8ToByteArray', ISOBoxer.Utils.utf8ToByteArray(stcos[0]._raw));
                 }
             }   
+
+
+            function ReadBig32(array, index) {
+                return ((array[index] << 24) |
+                    (array[index + 1] << 16) |
+                    (array[index + 2] << 8) |
+                    (array[index + 3]));
+            }
+
 
             const player = new MsePlayer(assetURL);
             function play(){
