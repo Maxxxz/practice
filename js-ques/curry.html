@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curry</title>
+</head>
+<body>
+    <script>
+        function add(a,b,c){
+            return a +b +c
+        }
+        function spec(a,b,c){
+            return a + b -c
+        }
+
+        function curry(fn){
+            var resfn = (...args)=>{
+                if(args.length === fn.length){
+                    return fn(...args)
+                }
+                return (...arg) => resfn(...args, ...arg)
+            }
+            return resfn
+        }
+
+        let addCury = curry(add);
+        console.log(addCury(1)(2)(3), addCury(1,2)(3))
+
+        let specCury = curry(spec);
+        console.log(specCury(3)(4)(2), specCury(3,4)(2))
+
+
+        let partialAdd = partial(add, 1)
+        console.log('partialAdd(2, 3)', partialAdd(2, 3))
+
+        function partial(fn, ...args){
+            return (...leftargs)=>{
+               return  fn(...args, ...leftargs)
+            }
+        }
+    </script>
+</body>
+</html>

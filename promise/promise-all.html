@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise-all</title>
+</head>
+<body>
+
+    <script>
+        Promise.cAll = function(arr){
+            return new Promise((resolve, rej)=>{
+                var results = new Array(arr.length);
+                var index = 0;
+                arr.forEach((pro, i) => {
+                    pro.then((res)=>{
+                        results[i] = res
+                        index+=1;
+                        if(index === arr.length){
+                            resolve(results)
+                        }
+                    }).catch((err)=>{
+                        rej(err)
+                    })
+                });
+            })
+        }
+    
+
+        function pp(a, timeout){
+            return new Promise((res, rej)=>{
+                setTimeout(() => {
+                  res(a);  
+                }, timeout);
+            })
+        }
+        var pArr = [
+            pp('a', 2),
+            pp('c', 1),
+            pp('tt', 3)
+        ];
+
+        var pArr2 = [
+            pp('a1', 1),
+            pp('c1', 1),
+            Promise.reject(11)
+        ];
+
+        Promise.cAll(pArr).then((res)=>{
+            console.log('pArr', res);
+        });
+        
+        Promise.cAll(pArr2).then((res)=>{
+            console.log('pArr2', res);
+        });
+
+        Promise.all(pArr2).then((res)=>{
+            console.log('pArr2', res);
+        });
+
+        </script>
+</body>
+</html>

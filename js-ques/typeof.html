@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>typeof</title>
+</head>
+<body>
+    <script>
+        function typeOf(obj){
+            return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase()
+        }
+        // slice 如果值为负数，会被当做 strLength + beginIndex 看待，这里的strLength 是字符串的长度（例如，如果 beginIndex 是 -3 则看作是：strLength - 3）
+        // toString https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/toString
+        
+        console.log(typeOf('a'));
+    </script>
+</body>
+</html>
