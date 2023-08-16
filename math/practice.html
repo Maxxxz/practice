@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>quick</title>
+    </head>
+    <body>
+        <div>123</div>
+        <script>
+            // const arr = [51, 3, 5, 7, 0, 63, 54, 70, 9, 99, 88, 80];
+            // function quick(arr){
+            //     if(arr.length <=1){
+            //         return arr
+            //     }
+            //     var flag = arr.shift(0);
+            //     var leftarr = [];
+            //     var rightarr = [];
+            //     for(let i=0; i<arr.length; i++){
+            //         if(arr[i] < flag){
+            //             leftarr.push(arr[i])
+            //         }else{
+            //             rightarr.push(arr[i])
+            //         }
+            //     }
+            //     return quick(leftarr).concat([flag], quick(rightarr))
+            // }
+            // console.log(quick(arr))
+
+            // function countingSort(array) {
+            //     var len = array.length,
+            //         B = [],
+            //         C = [],
+            //         min = max = array[0];
+            //     console.time('计数排序耗时');
+            //     for (var i = 0; i < len; i++) {
+            //         min = min <= array[i] ? min : array[i];
+            //         max = max >= array[i] ? max : array[i];
+            //         C[array[i]] = C[array[i]] ? C[array[i]] + 1 : 1;
+            //     }
+            //     console.log('C', JSON.stringify(C))
+            //     for (var j = min; j < max; j++) {
+            //         C[j + 1] = (C[j + 1] || 0) + (C[j] || 0);
+            //     }
+            //     console.log('C', JSON.stringify(C))
+            //     for (var k = len - 1; k >= 0; k--) {
+            //         B[C[array[k]] - 1] = array[k];
+            //         console.log('B', JSON.stringify(B))
+            //         C[array[k]]--;
+            //     }
+            //     console.log('C', JSON.stringify(C))
+            //     console.timeEnd('计数排序耗时');
+            //     return B;
+            // }
+            // var arr = [2, 2, 3, 8, 7, 1, 2, 2, 2, 7, 3, 9, 8, 2, 1, 4, 2, 4, 6, 9, 2];
+            // console.log(countingSort(arr));
+            
+            // longest-increasing base
+            // var lengthOfLIS = function (nums) {
+            //     var dp = new Array(nums.length).fill(1);
+            //     for(let i=0; i<nums.length; i++){
+            //         for(let j=0;j<i; j++){
+            //             if(nums[i] > nums[j]){
+            //                 dp[i] = Math.max(dp[j]+1, dp[i])
+            //             }
+            //         }
+            //     }
+            //     return Math.max(...dp)
+            // };
+            
+            // longest-increasing erfen
+            // var lengthOfLIS = function(nums) {
+            //     var ans = []; 
+            //     for (var i = 0; i < nums.length; i++) {
+            //         var left = 0, right = ans.length;
+            //         while (left < right) { //二分法
+            //             var mid = left + right >>> 1;
+            //             if (ans[mid] < nums[i]) left = mid + 1;
+            //             else right = mid;
+            //         } 
+            //         if (right >= ans.length) ans.push(nums[i]); //如果找不到 在ans最后增加一项nums[i]
+            //         else ans[right] = nums[i];
+            //     }
+            //     return ans.length;
+            // };
+
+            var arr = [0,1,0,3,2,3]
+            lengthOfLIS(arr);
+
+            // erfen
+            // var search = function (nums, target) {
+            //     var left = 0,right = nums.length -1;
+            //     while(left <= right){
+            //         var mid = Math.floor(right - left / 2);
+            //         if(target === nums[mid]){
+            //             return mid
+            //         }
+            //         if(target > nums[mid]){
+            //             left = mid + 1;
+            //         } else {
+            //             right = mid - 1;
+            //         }
+            //     }
+            //     return -1;
+            // };
+
+            // console.log(search([-1, 0, 3, 5, 9, 12], 9));  // 得到位置
+        </script>
+    </body>
+</html>
