@@ -53,7 +53,9 @@
     "@ffmpeg/core": "^0.11.0",
     "@ffmpeg/ffmpeg": "^0.11.6",
     "heapdump": "^0.3.15",
+    "inversify": "^6.0.1",
     "koa-session": "^5.10.1",
+    "reflect-metadata": "^0.1.13",
     "webpack": "^4.29.6"
   }
 }

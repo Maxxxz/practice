@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc index.ts"
+    "dev": "tsc index.ts",
+    "dev:i": "tsc inversify/index.ts "
   },
   "author": "",
   "license": "ISC",

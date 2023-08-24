@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <button id="btn">123</button>
+</head>
+<body>
+  <!-- <script>
+    const preventReqMor = function(fn){
+      let p = null;
+      return function(...args){
+        return p ? p : (p = fn(...args).finally( p = null))
+      }
+    } -->
+    
+  </script>
+  <script>
+
+      const preventRequestMore =
+      (fn, p = null) =>
+      (...arg) =>
+          p ? p : (p = fn(...arg).finally((res) => {
+            console.log('fin', res)
+            p = null
+          }));
+
+
+    //测试
+    let count = 1;
+    let promiseFunction = () => new Promise(rs => setTimeout(()=>{
+      if(count > 1){
+        throw 'err'
+      }
+      rs(count++)
+    }, 1000));
+    let firstFn = preventRequestMore (promiseFunction);
+    
+    // firstFn().then(console.log); // 1
+    // firstFn().then(console.log); // 1
+    // firstFn().then(console.log); // 1
+    
+    // setTimeout(() => {
+    //   firstFn().then(console.log); // 2
+    // }, 100);
+
+    // setTimeout(() => {
+    //   firstFn().then(console.log); // 2
+    //   firstFn().then(console.log); // 2
+    //   firstFn().then(console.log); // 2
+    // }, 3000);
+
+
+    document.querySelector('#btn').addEventListener('click', async () =>{
+      const res = await firstFn();
+      console.log('res', res)
+      console.log(1111)
+    })
+
+  </script>
+</body>
+</html>

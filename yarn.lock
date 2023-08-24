@@ -2354,6 +2354,11 @@
   "resolved" "http://r.tnpm.oa.com/interpret/download/interpret-1.2.0.tgz"
   "version" "1.2.0"
 
+"inversify@^6.0.1":
+  "integrity" "sha512-B3ex30927698TJENHR++8FfEaJGqoWOgI6ZY5Ht/nLUsFCwHn6akbwtnUAPCgUepAnTpe2qHxhDNjoKLyz6rgQ=="
+  "resolved" "https://registry.npmjs.org/inversify/-/inversify-6.0.1.tgz"
+  "version" "6.0.1"
+
 "invert-kv@^2.0.0":
   "integrity" "sha1-c5P1r6Weyf9fZ6J2INEcIm4+7AI="
   "resolved" "http://r.tnpm.oa.com/invert-kv/download/invert-kv-2.0.0.tgz"
@@ -3969,6 +3974,11 @@
   dependencies:
     "indent-string" "^3.0.0"
     "strip-indent" "^2.0.0"
+
+"reflect-metadata@^0.1.13":
+  "integrity" "sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg=="
+  "resolved" "https://registry.npmjs.org/reflect-metadata/-/reflect-metadata-0.1.13.tgz"
+  "version" "0.1.13"
 
 "regenerator-runtime@^0.13.4", "regenerator-runtime@^0.13.7":
   "integrity" "sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg=="
