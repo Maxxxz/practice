@@ -1,45 +1,83 @@
-// main.js
-
-// electron 模块可以用来控制应用的生命周期和创建原生浏览窗口
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain, webContents } = require('electron')
 const path = require('path')
+const fs = require('fs')
+const https = require('https')
 
-const createWindow = () => {
-  // 创建浏览窗口
-  const mainWindow = new BrowserWindow({
+function createMainWindow () {
+  const mainWin = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      webSecurity: false,
+      nodeIntegration: true,
     }
   })
 
-  // 加载 index.html
-  mainWindow.loadFile('index.html')
+  mainWin.loadFile('index.html')
+  mainWin.webContents.openDevTools()
 
-  // 打开开发工具
-  mainWindow.webContents.openDevTools()
+
+  function createSubWindow (filePath) {
+    console.log('webContents', webContents)
+    const win = new BrowserWindow({
+      parent: mainWin,
+      modal: true,
+      width: 800,
+      height: 500,
+      webPreferences: {
+        webSecurity: false,
+      }
+    })
+    const fileName = path.join(__dirname, filePath);
+    console.log('fileNa1me', fileName)
+    win.webContents.loadFile(fileName)
+    win.webContents.openDevTools()
+    win.once('ready-to-show', () => {
+      win.show()
+    })
+
+    // window.open(path.join(__dirname, filePath))
+  }
+  
+  ipcMain.on('onCreateSubWindow', (event, filePath) => {
+    console.log('ipcMain ondragstart', filePath)
+    createSubWindow(filePath)
+  })
+
 }
 
-// 这段程序将会在 Electron 结束初始化
-// 和创建浏览器窗口的时候调用
-// 部分 API 在 ready 事件触发后才能使用。
-app.whenReady().then(() => {
-  createWindow()
+const iconName = path.join(__dirname, 'iconForDragAndDrop.png')
+const icon = fs.createWriteStream(iconName)
 
-  app.on('activate', () => {
-    // 在 macOS 系统内, 如果没有已开启的应用窗口
-    // 点击托盘图标时通常会重新创建一个新窗口
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+// Create a new file to copy - you can also copy existing files.
+fs.writeFileSync(path.join(__dirname, 'drag-and-drop-1.md'), '# First file to test drag and drop')
+fs.writeFileSync(path.join(__dirname, 'drag-and-drop-2.md'), '# Second file to test drag and drop')
+
+https.get('https://img.icons8.com/ios/452/drag-and-drop.png', (response) => {
+  response.pipe(icon)
+})
+
+app.whenReady().then(createMainWindow)
+
+ipcMain.on('ondragstart', (event, filePath) => {
+  console.log('ipcMain ondragstart', filePath)
+  event.sender.startDrag({
+    file: path.join(__dirname, filePath),
+    icon: iconName
   })
 })
 
-// 除了 macOS 外，当所有窗口都被关闭的时候退出程序。 因此, 通常
-// 对应用程序和它们的菜单栏来说应该时刻保持激活状态, 
-// 直到用户使用 Cmd + Q 明确退出
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
 })
 
-// 在当前文件中你可以引入所有的主进程代码
-// 也可以拆分成几个文件，然后用 require 导入。
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createMainWindow()
+  }
+})
+
+
