@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, webContents } = require('electron')
+const { app, BrowserWindow, ipcMain, webContents, screen } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const https = require('https')
@@ -19,10 +19,15 @@ function createMainWindow () {
 
 
   function createSubWindow (filePath) {
-    console.log('webContents', webContents)
+    // console.log('webContents', webContents)
+    console.log('screen width', screen.getPrimaryDisplay().workAreaSize.width)
+    console.log('screen height', screen.getPrimaryDisplay().workAreaSize.height)
+    const screens = screen.getAllDisplays();
+    console.log('screen.getAllDisplays()', screens)
+
     const win = new BrowserWindow({
-      parent: mainWin,
-      modal: true,
+      // parent: mainWin,
+      modal: false,
       width: 800,
       height: 500,
       webPreferences: {
@@ -30,8 +35,10 @@ function createMainWindow () {
       }
     })
     const fileName = path.join(__dirname, filePath);
-    console.log('fileNa1me', fileName)
+    console.log('fileName', fileName)
     win.webContents.loadFile(fileName)
+    win.setBounds({ x: 0, y: 0, width: 300, height: 300 })
+    // mainWin.webContents.loadURL('file://' + fileName)
     win.webContents.openDevTools()
     win.once('ready-to-show', () => {
       win.show()
@@ -79,5 +86,7 @@ app.on('activate', () => {
     createMainWindow()
   }
 })
+
+console.log('name', app.getName())
 
 

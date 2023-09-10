@@ -11,6 +11,6 @@ document.getElementById('drag1').ondragstart = (event) => {
 
   document.getElementById('createWin').onclick = (event) => {
     event.preventDefault()
-    window.electron.createWin('pages/person.html')
+    window.electron.createWin('src/pages/person.html')
    
   }

@@ -1,10 +1,11 @@
 {
   "name": "my-electron-app",
+  "productName": "maxi-electron",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron . --max-old-space-size=8096"
   },
   "author": "maxi",
   "license": "ISC",
