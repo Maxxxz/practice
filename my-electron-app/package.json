@@ -6,7 +6,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron . --max-old-space-size=8096",
-    "build": "electron-builder"
+    "build": "electron-builder",
+    "pack": "npx electron-installer-dmg ./ maxiFirstElec --platform=darwin --arch=x64 --out=packs --overwrite"
   },
   "build": {
     "productName": "productNameMaxi",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "electron": "^26.0.0",
     "electron-builder": "^24.6.4",
+    "electron-installer-dmg": "^4.0.0",
     "electron-packager": "^17.1.2"
   }
 }
