@@ -1,0 +1,17 @@
+{
+  "name": "jaye-electron-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ./src/main.js --max-old-space-size=8096",
+    "build": "electron-builder",
+    "pack": "npx electron-installer-dmg src maxiFirstElec --platform=darwin --arch=x64 --out=packs --overwrite"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^26.2.0"
+  }
+}
