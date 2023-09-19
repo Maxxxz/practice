@@ -6,3 +6,5 @@ rust/**/target
 **/releases/
 **/packs/
 .DS_Store
+.app/
+*.asar
