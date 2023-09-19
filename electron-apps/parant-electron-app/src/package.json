@@ -1,0 +1,9 @@
+{
+    "name": "my-electron-app",
+    "version": "1.0.0",
+    "description": "My Electron App",
+    "main": "main.js",
+    "devDependencies": {
+        "electron": "^26.0.0"
+    }
+  }

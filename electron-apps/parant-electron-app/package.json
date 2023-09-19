@@ -1,0 +1,29 @@
+{
+  "name": "my-electron-app",
+  "productName": "maxi-electron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron ./src/main.js --max-old-space-size=8096",
+    "build": "electron-builder",
+    "pack": "npx electron-installer-dmg src maxiFirstElec --platform=darwin --arch=x64 --out=packs --overwrite",
+    "asar": "node build/asar"
+  },
+  "build": {
+    "productName": "productNameMaxi",
+    "appId": "com.appIdMaxi.aaa",
+    "directories": {
+      "app": "src",
+      "output": "releases"
+    }
+  },
+  "author": "maxi",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^26.0.0",
+    "electron-builder": "^24.6.4",
+    "electron-installer-dmg": "^4.0.0",
+    "electron-packager": "^17.1.2"
+  }
+}
