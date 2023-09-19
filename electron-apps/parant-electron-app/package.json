@@ -6,13 +6,12 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron ./src/main.js --max-old-space-size=8096",
-    "build": "electron-builder",
+    "release": "electron-builder",
     "pack": "npx electron-installer-dmg src maxiFirstElec --platform=darwin --arch=x64 --out=packs --overwrite",
     "asar": "node build/asar"
   },
   "build": {
-    "productName": "productNameMaxi",
-    "appId": "com.appIdMaxi.aaa",
+    "productName": "maxiParant",
     "directories": {
       "app": "src",
       "output": "releases"

@@ -39,11 +39,6 @@ const path = require('path');
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electron', {
-  startDrag: (fileName) => {
-    console.log('electron exposeInMainWorld startDrag', fileName)
-    ipcRenderer.send('ondragstart', fileName)
-    // 发送给主进程
-  },
   createWin: (fileName) => {
     console.log('electron exposeInMainWorld createWin', fileName)
     ipcRenderer.send('onCreateSubWindow', fileName)
