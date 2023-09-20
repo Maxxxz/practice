@@ -11,7 +11,7 @@
     "asar": "node build/asar"
   },
   "build": {
-    "productName": "productNameMaxi",
+    "productName": "maxiChild",
     "appId": "com.appIdMaxi.aaa",
     "directories": {
       "app": "src",

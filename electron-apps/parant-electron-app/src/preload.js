@@ -39,6 +39,13 @@ const path = require('path');
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electron', {
+  createAsar: () => {
+    console.log('electron createAsar onCreateAsarWindow')
+    ipcRenderer.send('onCreateAsarWindow')
+    // 发送给主进程
+    // window.open('file://Users/maxi/Desktop/git/maxi-github/practice/my-electron-app/pages/person.html')
+  },
+  
   createWin: (fileName) => {
     console.log('electron exposeInMainWorld createWin', fileName)
     ipcRenderer.send('onCreateSubWindow', fileName)

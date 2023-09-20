@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, webContents, screen } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const https = require('https')
+const { createChildWindow } = require('/maxi.asar/main.js')
 
 // 创建window的时候才撞见deeplink
 function createMainWindow () {
@@ -31,6 +32,7 @@ function createSubWindow (filePath) {
     modal: false,
     width: 800,
     height: 500,
+    icon: './weishi.png',
     webPreferences: {
       webSecurity: false,
     }
@@ -48,6 +50,11 @@ function createSubWindow (filePath) {
 ipcMain.on('onCreateSubWindow', (event, filePath) => {
   console.log('ipcMain onCreateSubWindow', filePath)
   createSubWindow(filePath)
+})
+
+ipcMain.on('onCreateAsarWindow', (event) => {
+  console.log('ipcMain onCreateAsarWindow')
+  createChildWindow()
 })
 
 app.whenReady().then(()=>{
