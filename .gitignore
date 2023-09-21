@@ -7,4 +7,3 @@ rust/**/target
 **/packs/
 .DS_Store
 .app/
-*.asar

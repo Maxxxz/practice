@@ -2,7 +2,10 @@ const { app, BrowserWindow, ipcMain, webContents, screen } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const https = require('https')
-const { createChildWindow } = require('/maxi.asar/main.js')
+// 开发环境
+// const { createChildWindow } = require('/maxi.asar/main.js') 
+// 打包之后 需要手动拷贝下链接去实现
+const { createChildWindow } = require('../../../../maxi.asar/main.js')
 
 // 创建window的时候才撞见deeplink
 function createMainWindow () {
