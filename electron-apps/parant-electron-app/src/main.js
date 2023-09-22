@@ -57,11 +57,51 @@ ipcMain.on('onCreateSubWindow', (event, filePath) => {
 })
 
 ipcMain.on('onCreateAsarWindow', (event) => {
-  console.log('ipcMain onCreateAsarWindow')
+  console.log('ipcMain onCreateAsarWindow 2')
   // createChildWindow()
-  childProcess.exec("electron /Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/src/maxi-auto-init.asar/main.js", {stdio: [0, 1, 2]});
+  // childProcess.execSync("electron -v", {}, (...args)=>{
+  //   console.log('-v', ...args)
+  // })
+  // console.log('maxi 1')
+  // childProcess.exec("electron /Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/src/maxi-auto-init.asar/main.js", {stdio: [0, 1, 2]}, (...args)=>{
+  //   console.log('electron main', ...args)
+  // });
+  // childProcess.fork(path.join(__dirname, './test.js'))
+
+  // const electronSrc = path.join('/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/node_modules/.bin/electron')
+  // childProcess.fork('electronSrc', ['/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/src/maxi-auto-init.asar/main.js','--max-old-space-size=8096'], {execPath: '/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/node_modules/'}, (error, stdout, stderr) => {
+  //   if (error) {
+  //     throw error;
+  //   }
+  //   console.log('maxi stdout', stdout);
+  // }); 
 
   // childProcess.execSync("electron ./maxi.asar/main.js", {stdio: [0, 1, 2]});
+
+   const cWin = childProcess.spawn('/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/node_modules/.bin/electron', ['/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/src/maxi-auto-init.asar/main.js'], {
+      // detached: true,
+      shell: true,
+      cwd: '/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/node_modules/.bin/electron'
+    }, (error, stdout, stderr)=>{
+      if (error) {
+        throw error;
+      }
+      console.log('maxi stdout', stdout);
+    });
+
+
+    cWin.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
+    });
+
+    cWin.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+      throw data;
+    });
+
+    cWin.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+    }); 
 })
 
 app.whenReady().then(()=>{

@@ -1,6 +1,9 @@
 const { app, BrowserWindow, ipcMain, webContents, screen } = require('electron')
 const path = require('path')
 
+console.log('maxi app', app)
+console.log('maxi ipcMain', ipcMain)
+
 // 创建window的时候才撞见deeplink
 function createChildWindow () {
   const mainWin = new BrowserWindow({
