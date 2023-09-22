@@ -2,10 +2,11 @@ const { app, BrowserWindow, ipcMain, webContents, screen } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const https = require('https')
+const childProcess = require("child_process")
 // 开发环境
 // const { createChildWindow } = require('/maxi.asar/main.js') 
 // 打包之后 需要手动拷贝下链接去实现
-const { createChildWindow } = require('../../../../maxi.asar/main.js')
+// const { createChildWindow } = require('../../../../maxi.asar/main.js')
 
 // 创建window的时候才撞见deeplink
 function createMainWindow () {
@@ -57,7 +58,10 @@ ipcMain.on('onCreateSubWindow', (event, filePath) => {
 
 ipcMain.on('onCreateAsarWindow', (event) => {
   console.log('ipcMain onCreateAsarWindow')
-  createChildWindow()
+  // createChildWindow()
+  childProcess.exec("electron /Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/src/maxi-auto-init.asar/main.js", {stdio: [0, 1, 2]});
+
+  // childProcess.execSync("electron ./maxi.asar/main.js", {stdio: [0, 1, 2]});
 })
 
 app.whenReady().then(()=>{
