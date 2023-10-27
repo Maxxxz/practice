@@ -87,11 +87,6 @@ ipcMain.on('onCreateAsarWindow', (event) => {
 
 app.whenReady().then(()=>{
   createMainWindow()
-
-  app.name = 'abc'
-  app.productName  = 'edf'
-  app.setName('ghj')
-
 })
 
 app.on('window-all-closed', () => {
@@ -117,8 +112,14 @@ app.on('open-url', (event, url) => {
 console.log('name', app.getName())
 
 
-app.setAboutPanelOptions({
-  applicationName: 'my app',
-  iconPath: path.join(__dirname, 'aaa.png')
-})
+// app.setAboutPanelOptions({
+//   applicationName: 'my app',
+//   iconPath: path.join(__dirname, 'aaa.png')
+// })
 
+// 设置底部的快捷菜单
+app.dock?.setIcon(path.join(__dirname, 'static/icon.png'))
+
+app.name = 'aa1'
+app.productName  = 'aaa2'
+app.setName('aaa3')

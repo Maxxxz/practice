@@ -11,8 +11,11 @@
     "asar": "node build/asar"
   },
   "build": {
+    "mac": {
+      "icon": "src/static/icon512.png"
+    },
     "win": {
-      "icon": "icon.png"
+      "icon": "src/static/icon512.png"
     },
     "directories": {
       "app": "src",
