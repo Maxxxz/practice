@@ -1,6 +1,6 @@
 {
-  "name": "my-electron-app",
-  "productName": "maxi-electron",
+  "name": "maxi-electron-app",
+  "productName": "maxi-parent",
   "version": "1.0.0",
   "description": "",
   "main": "src/main.js",
@@ -11,7 +11,9 @@
     "asar": "node build/asar"
   },
   "build": {
-    "productName": "maxiParant",
+    "win": {
+      "icon": "icon.png"
+    },
     "directories": {
       "app": "src",
       "output": "releases"

@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, webContents, screen } = require('electron')
+const { app, BrowserWindow, ipcMain, webContents, screen, Tray  } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const https = require('https')
@@ -7,20 +7,21 @@ const childProcess = require("child_process")
 // const { createChildWindow } = require('/maxi.asar/main.js') 
 // 打包之后 需要手动拷贝下链接去实现
 // const { createChildWindow } = require('../../../../maxi.asar/main.js')
-
 // 创建window的时候才撞见deeplink
 function createMainWindow () {
+  const icon = path.join(__dirname, 'aaa.png')
+  // const appIcon = new Tray(icon)
   const mainWin = new BrowserWindow({
     width: 1200,
     height: 800,
-    icon: './weishi.png',
+    icon,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       webSecurity: false,
       nodeIntegration: true,
     }
   })
-
+  // mainWin.setIcon(appIcon)
   mainWin.loadFile('index.html')
   mainWin.webContents.openDevTools()
 }
@@ -58,30 +59,10 @@ ipcMain.on('onCreateSubWindow', (event, filePath) => {
 
 ipcMain.on('onCreateAsarWindow', (event) => {
   console.log('ipcMain onCreateAsarWindow 2')
-  // createChildWindow()
-  // childProcess.execSync("electron -v", {}, (...args)=>{
-  //   console.log('-v', ...args)
-  // })
-  // console.log('maxi 1')
-  // childProcess.exec("electron /Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/src/maxi-auto-init.asar/main.js", {stdio: [0, 1, 2]}, (...args)=>{
-  //   console.log('electron main', ...args)
-  // });
-  // childProcess.fork(path.join(__dirname, './test.js'))
 
-  // const electronSrc = path.join('/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/node_modules/.bin/electron')
-  // childProcess.fork('electronSrc', ['/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/src/maxi-auto-init.asar/main.js','--max-old-space-size=8096'], {execPath: '/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/node_modules/'}, (error, stdout, stderr) => {
-  //   if (error) {
-  //     throw error;
-  //   }
-  //   console.log('maxi stdout', stdout);
-  // }); 
-
-  // childProcess.execSync("electron ./maxi.asar/main.js", {stdio: [0, 1, 2]});
-
-   const cWin = childProcess.spawn('/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/node_modules/.bin/electron', ['/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/src/maxi-auto-init.asar/main.js'], {
+   const cWin = childProcess.spawn('electron.cmd', ['/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/src/maxi-auto-init.asar/main.js'], {
       // detached: true,
       shell: true,
-      cwd: '/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/parant-electron-app/node_modules/.bin/electron'
     }, (error, stdout, stderr)=>{
       if (error) {
         throw error;
@@ -106,6 +87,11 @@ ipcMain.on('onCreateAsarWindow', (event) => {
 
 app.whenReady().then(()=>{
   createMainWindow()
+
+  app.name = 'abc'
+  app.productName  = 'edf'
+  app.setName('ghj')
+
 })
 
 app.on('window-all-closed', () => {
@@ -130,4 +116,9 @@ app.on('open-url', (event, url) => {
 // 部分 API 在 ready 事件触发后才能使用。
 console.log('name', app.getName())
 
+
+app.setAboutPanelOptions({
+  applicationName: 'my app',
+  iconPath: path.join(__dirname, 'aaa.png')
+})
 
