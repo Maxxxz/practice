@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "My Electron App",
     "main": "main.js",
-    "productName": "productName-inner-okg",
+    "productName": "productName-inner-pkgjson",
     "devDependencies": {
         "electron": "^26.0.0"
     }

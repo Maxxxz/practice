@@ -9,7 +9,7 @@ const childProcess = require("child_process")
 // const { createChildWindow } = require('../../../../maxi.asar/main.js')
 // 创建window的时候才撞见deeplink
 function createMainWindow () {
-  const icon = path.join(__dirname, 'aaa.png')
+  const icon = path.join(__dirname, 'icon.png')
   // const appIcon = new Tray(icon)
   const mainWin = new BrowserWindow({
     width: 1200,
@@ -31,13 +31,13 @@ function createSubWindow (filePath) {
   console.log('screen height', screen.getPrimaryDisplay().workAreaSize.height)
   const screens = screen.getAllDisplays();
   console.log('screen.getAllDisplays()', screens)
-
+  const icon = path.join(__dirname, 'aaa.png')
   const win = new BrowserWindow({
     // parent: mainWin,
     modal: false,
     width: 800,
     height: 500,
-    icon: './weishi.png',
+    icon,
     webPreferences: {
       webSecurity: false,
     }
@@ -87,6 +87,7 @@ ipcMain.on('onCreateAsarWindow', (event) => {
 
 app.whenReady().then(()=>{
   createMainWindow()
+  app.name = 'name2'
 })
 
 app.on('window-all-closed', () => {
@@ -120,6 +121,5 @@ console.log('name', app.getName())
 // 设置底部的快捷菜单
 app.dock?.setIcon(path.join(__dirname, 'static/icon.png'))
 
-app.name = 'aa1'
-app.productName  = 'aaa2'
-app.setName('aaa3')
+app.name = 'name1'
+// app.setName('setNameAA1')
