@@ -15,7 +15,8 @@ window.addEventListener('hashchange', () => {
   currentPath.value = window.location.hash
 })
 const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || '/'] || NotFound
+  return routes[currentPath.value.slice(1) || '/'] 
+  // || NotFound
 })
 
 </script>

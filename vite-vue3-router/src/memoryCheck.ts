@@ -1,13 +1,13 @@
 let mixin = {};
 
 // eslint-disable-next-line no-undef
-const detect = typeof FinalizationRegistry !== 'undefined' && typeof WeakMap !== 'undefined';
+const detect = typeof window.FinalizationRegistry !== 'undefined' && typeof WeakMap !== 'undefined';
 
 if (detect) {
   const unmountedComponentWeakMap = new WeakMap();
   const unmountedComponentSet = new Set();
 
-  const registry = new FinalizationRegistry((value) => {
+  const registry = new window.FinalizationRegistry((value) => {
     console.log(`[Memory] Finalize: ${value.key}`);
     unmountedComponentSet.delete(value.weakRef);
   });
@@ -15,7 +15,7 @@ if (detect) {
   const watch = (instance) => {
     if (!unmountedComponentWeakMap.has(instance)) {
       unmountedComponentWeakMap.set(instance, instance._$memoryDetectKey);
-      const weakRef = new WeakRef(instance);
+      const weakRef = new window.WeakRef(instance);
 
       unmountedComponentSet.add(weakRef);
       registry.register(instance, { weakRef, key: instance._$memoryDetectKey });
@@ -25,7 +25,7 @@ if (detect) {
 
   const unWatch = (instance) => {
     for (const weakRef of unmountedComponentSet.keys()) {
-      const ref = weakRef.deref();
+      const ref = (weakRef as any).deref();
 
       if (ref === instance) {
         console.log(`[Memory] unWatch: ${instance._$memoryDetectKey}`);
@@ -41,7 +41,7 @@ if (detect) {
     let count = 0;
 
     for (const weakRef of unmountedComponentSet.keys()) {
-      const ref = weakRef.deref();
+      const ref = (weakRef as any).deref();
 
       if (!ref) {
         continue;
@@ -73,66 +73,71 @@ if (detect) {
     },
     mounted() {
       console.log(`[Memory] Component mounted: ${this._$memoryDetectKey}`);
+      // console.log('[Memory] mounted this.$options.__file', this.$options.__file);
+      //   console.log('[Memory] mounted this.$.type?.__name', this.$.type?.__name);
+      //   console.log('[Memory] mounted this.$.type?.__file', this.$.type?.__file);
       // console.log(`[Memory] Component mounted this options`, this.$options);
       // console.log(`[Memory] Component mounted this $`, this.$);
       // console.log(`[Memory] Component mounted this parent`, this.$parent);
       unWatch(this);
     },
     beforeUnmount() {
-      console.log(`[Memory] Component beforeUnmount 0: ${this._$memoryDetectKey}`);
+      // console.log(`[Memory] Component beforeUnmount: ${this._$memoryDetectKey}`);
       watch(this);
     },
     unmounted() {
-      // setTimeout(() => {
-      //   const refs = (this.$parent && this.$parent.$refs) || {};
+      console.log('unmounted', this.$)
+      setTimeout(() => {
+        const refs = (this.$.parent && this.$.parent.refs) || {};
 
-      //   if (refs) {
-      //     Object.keys(refs).forEach((key) => {
-      //       if (Array.isArray(refs[key])) {
-      //         refs[key] &&
-      //           (refs[key] = refs[key].filter((item) => {
-      //             return refs[key]._uid !== this._uid;
-      //           }));
-      //       } else if (refs[key] && refs[key]._uid === this._uid) {
-      //         delete refs[key];
-      //       }
-      //     });
-      //   }
+        if (refs) {
+          Object.keys(refs).forEach((key) => {
+            if (Array.isArray(refs[key])) {
+              refs[key] &&
+                (refs[key] = refs[key].filter((item) => {
+                  return refs[key]._uid !== this._uid;
+                }));
+            } else if (refs[key] && refs[key]._uid === this._uid) {
+              delete refs[key];
+            }
+          });
+        }
 
-      //   if (this.$options) {
-      //     this.$options.parent = null;
-      //     this.$options._parentListeners = null;
-      //   }
+        // 用不上了
+        // if (this.$options) {
+        //   this.$options.parent = null;
+        //   this.$options._parentListeners = null;
+        // }
 
-      //   if (this.$vnode) {
-      //     this.$vnode.context = null;
-      //     this.$vnode.componentInstance = null;
-      //     this.$vnode.componentOptions.listeners = null;
-      //     this.$vnode.data.ref = null;
-      //     this.$vnode.data.directives = null;
-      //     this.$vnode.elm && (this.$vnode.elm.__vue__ = null);
-      //     this.$vnode.elm = null;
-      //   }
+        if (this.$.vnode) {
+          this.$.vnode.appContext = null;
+          this.$.vnode.component = null;
+          // this.$.vnode.componentOptions.listeners = null;
+          // this.$.vnode.data.ref = null;
+          // this.$.vnode.data.directives = null;
+          // this.$.vnode.elm && (this.$.vnode.elm.__vue__ = null);
+          this.$.vnode.el = null;
+        }
 
-      //   for (const key in this.$listeners) {
-      //     this.$listeners[key] = null;
-      //   }
+        // for (const key in this.$listeners) {
+        //   this.$listeners[key] = null;
+        // }
 
-      //   this.$children = null;
+        // this.$children = null;
 
-      //   if (this._vnode) {
-      //     this._vnode.context = null;
-      //     this._vnode.componentInstance = null;
-      //     this._vnode.children = null;
-      //     this._vnode.elm && (this._vnode.elm.__vue__ = null);
-      //     this._vnode.elm = null;
-      //   }
+        // if (this._vnode) {
+        //   this._vnode.context = null;
+        //   this._vnode.componentInstance = null;
+        //   this._vnode.children = null;
+        //   this._vnode.elm && (this._vnode.elm.__vue__ = null);
+        //   this._vnode.elm = null;
+        // }
 
-      //   this.$parent = null;
-      //   this._events = {};
-      //   this.$el && (this.$el.__vue__ = null);
-      //   this.$el = null;
-      // }, 0);
+        // this.$parent = null;
+        // this._events = {};
+        // this.$el && (this.$el.__vue__ = null);
+        // this.$el = null;
+      }, 0);
     },
     methods: {
       _$getMemoryLeakDetectKey() {

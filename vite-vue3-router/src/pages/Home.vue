@@ -7,12 +7,12 @@
 <script lang="ts" setup>
 import { onMounted, getCurrentInstance, onBeforeUnmount} from 'vue'
 onMounted(()=>{
-  const instance = getCurrentInstance();
-  console.log('maxilog onMounted', instance)
+  // const instance = getCurrentInstance();
+  // console.log('maxilog onMounted', instance)
 })
 onBeforeUnmount(() => {
-  const instance = getCurrentInstance();
-  console.log('maxilog onBeforeUnmount', instance)
+  // const instance = getCurrentInstance();
+  // console.log('maxilog onBeforeUnmount', instance)
 })
 </script>
 <style lang="scss">

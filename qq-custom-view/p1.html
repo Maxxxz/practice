@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p1</title>
+</head>
+<body>
+    <div onclick="handleClick()">测试1</div>
+    <div id="msg">111</div>
+    <script type="text/javascript" src="https://qqminiapp.cdn-go.cn/static/1.0.7/webview_jssdk/qqjssdk.js"></script>
+    <script>
+        window.qq.miniProgram.h5OnMessage((data) => { 
+            // console.log('p1', data);
+            alert(11)
+            // document.querySelector('#msg').innerHTML = data.data
+        })
+        function handleClick(){
+            window.qq.miniProgram.h5PostMessage({
+                data: '来自p1的消息'
+            });
+        }
+    </script>
+</body>
+</html>
