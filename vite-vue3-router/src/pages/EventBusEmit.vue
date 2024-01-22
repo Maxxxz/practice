@@ -20,6 +20,7 @@
   const handleClick = function(){
     console.log('emit success')
     Emitter.emit('maxiTest', {instance})
+    a.value = '清空console的打印引用就可以回收'
   }
 
   onMounted(()=>{

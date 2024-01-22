@@ -17,10 +17,10 @@
   const a = ref('文案1')
   const instance = getCurrentInstance();
 
-  Emitter.on('maxiTest', function(obj){
+  Emitter.on('maxiTest', function(obj: any){
     console.log('emitter on a', instance.subTree)
     a.value = 'emit'
-    console.log('emitter on obj', obj)
+    console.log('emitter on obj', obj, obj.instance)
   })
 
   onMounted(()=>{
