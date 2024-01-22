@@ -3,9 +3,11 @@ import { ref, computed } from 'vue'
 import HelloWorld from './pages/HelloWorld.vue'
 import Home from './pages/Home.vue'
 import About from './pages/About.vue'
+import Oberver from './pages/Oberver.vue'
 
 const routes = {
   '/': Home,
+  '/Oberver': Oberver,
   '/about': About,
   '/hello': HelloWorld
 }
@@ -24,6 +26,7 @@ const currentView = computed(() => {
 <template>
   <div>
     <a href="#/">Home</a> |
+    <a href="#/Oberver">Oberver</a> |
     <a href="#/about">About</a> |
     <a href="#/hello">hello</a> |
     <a href="#/non-existent-path">Broken Link</a>
