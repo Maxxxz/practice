@@ -4,15 +4,20 @@ import HelloWorld from './pages/HelloWorld.vue'
 import Home from './pages/Home.vue'
 import KeepAlive from './pages/KeepAlive.vue'
 import Oberver from './pages/Oberver.vue'
-import Instance from './pages/Instance.vue'
-
+import CurrentNode from './pages/CurrentNode.vue'
+import EventBusEmit from './pages/EventBusEmit.vue'
+import EventBusOn from './pages/EventBusOn.vue'
 
 const routes = {
   '/': Home,
+  '/currentNode': CurrentNode,
   '/oberver': Oberver,
-  '/instance': Instance,
   '/keeplaive': KeepAlive,
-  '/hello': HelloWorld
+  '/hello': HelloWorld,
+  '/eventBusEmit': EventBusEmit,
+  '/eventBusOn': EventBusOn,
+  
+
 }
 
 const currentPath = ref(window.location.hash)
@@ -29,11 +34,12 @@ const currentView = computed(() => {
 <template>
   <div>
     <a href="#/">Home</a> |
+    <a href="#/currentNode">CurrentNode</a> |
     <a href="#/oberver">Oberver</a> |
-    <a href="#/instance">Instance</a> |
     <a href="#/keeplaive">KeepAlive</a> |
-    <a href="#/hello">hello</a> |
-    <a href="#/non-existent-path">Broken Link</a>
+    <!-- <a href="#/hello">hello</a> | -->
+    <a href="#/eventBusEmit">EventBusEmit</a> |
+    <a href="#/eventBusOn">EventBusOn</a> |
   </div>
   <component :is="currentView" />
 </template>

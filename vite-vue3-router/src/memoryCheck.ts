@@ -153,6 +153,7 @@ if (detect) {
           name,
           location,
           file: this.$options.__file,
+          time: new Date(),
         });
       },
     },
