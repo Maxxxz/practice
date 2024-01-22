@@ -1,18 +1,65 @@
 <template>
-  <div>
+  <div id="homeTest">
     home
   </div>
+  <span id="homeTest0">
+    home
+  </span>
+  <span id="homeTest1">
+    home
+  </span>
+  <span id="homeTest2">
+    home
+  </span>
+  <span id="homeTest3">
+    home
+  </span>
+  <span id="homeTest4">
+    home
+  </span>
+  <span id="homeTest5">
+    home
+  </span>
+  <span id="homeTest6">
+    home
+  </span>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, getCurrentInstance, onBeforeUnmount} from 'vue'
+import { onMounted, getCurrentInstance, onBeforeUnmount, ref} from 'vue'
+const aa = ref('111');
+window.bb = 'haha'
+const instance = getCurrentInstance();
+const arr = []
+
+// 匿名函数 + 引用了vue实例，组件实例才不会被卸载
+// 具名函数 + 引用了vue实例 + 没有主动remove，组件实例也不会被
+// 具名+打印ref+没有主动remove，会被卸载
+// 具名函数 + 引用了vue实例 + 主动remove，会被卸载
+
+const obj: any = {}
+function cc(){
+  // 增加引用this后，实例不会被释放
+  console.log('maxilog click instance', instance, instance.isUnmounted)
+  instance.isUnmounted
+  console.log('aa', aa)
+}
+
 onMounted(()=>{
-  // const instance = getCurrentInstance();
+  
+  // obj.instance = getCurrentInstance();
   // console.log('maxilog onMounted', instance)
+  document.querySelector('#homeTest').addEventListener('click', cc)
+
+  // document.body.addEventListener('size', function(){
+  //   console.log('size change', obj)
+  // })
 })
 onBeforeUnmount(() => {
   // const instance = getCurrentInstance();
   // console.log('maxilog onBeforeUnmount', instance)
+
+  document.querySelector('#homeTest').removeEventListener('click', cc)
 })
 </script>
 <style lang="scss">

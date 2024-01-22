@@ -1,11 +1,13 @@
 <template>
   <div>
-    keep alive
+    <div>keep alive</div>
+    <Common></Common>
   </div>
 </template>
 
 <script lang="ts" setup>
     import { onActivated, onDeactivated, onUnmounted } from 'vue'
+    import Common from './Common.vue'; 
 
         onActivated(() => {
             // called on initial mount
