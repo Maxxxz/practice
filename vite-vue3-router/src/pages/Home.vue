@@ -3,7 +3,7 @@
     home
   </div>
   <span id="homeTest0">
-    home
+    event
   </span>
   <span id="homeTest1">
     home
@@ -27,10 +27,9 @@
 
 <script lang="ts" setup>
 import { onMounted, getCurrentInstance, onBeforeUnmount, ref} from 'vue'
+console.log('home setup')
 const aa = ref('111');
-window.bb = 'haha'
 const instance = getCurrentInstance();
-const arr = []
 
 // 匿名函数 + 引用了vue实例，组件实例才不会被卸载
 // 具名函数 + 引用了vue实例 + 没有主动remove，组件实例也不会被
@@ -59,7 +58,7 @@ onBeforeUnmount(() => {
   // const instance = getCurrentInstance();
   // console.log('maxilog onBeforeUnmount', instance)
 
-  document.querySelector('#homeTest').removeEventListener('click', cc)
+  // document.querySelector('#homeTest').removeEventListener('click', cc)
 })
 </script>
 <style lang="scss">

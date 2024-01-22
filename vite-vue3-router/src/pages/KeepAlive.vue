@@ -24,26 +24,11 @@ const handleClick = function(){
   console.log('click')
 }
 
-
-const registry = new window.FinalizationRegistry((value) => {
-  console.log(`[maxilog] Finalize: ${value}`);
-});
-
 onMounted(()=>{
   const instance = getCurrentInstance();
   console.log('maxilog onMounted about', instance)
-  // const weakRefa = new window.WeakRef(document.querySelector('#aaa'));
-  // const weakRefb = new window.WeakRef(document.querySelector('#bbb'));
-  // // const dom = document.querySelector('#aaa')
-  // const obj = {a: 1}
-  // console.log('maxilog weakRef',  weakRefa, weakRefb)
-  // console.log('maxilog weakRefobj',  obj)
-  // registry.register(weakRefa, 'weakRefa');
-  // registry.register(weakRefa, 'weakRefb');
-  // registry.register(obj, 'obj');
 })
 onBeforeUnmount(() => {
-  // const instance = getCurrentInstance();
   console.log('maxilog onBeforeUnmount')
 })
 </script>

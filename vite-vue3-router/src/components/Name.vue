@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>keep alive</div>
+    <div>keep alive1</div>
     <Common></Common>
   </div>
 </template>
