@@ -2,6 +2,9 @@
     <div>
       onEvent
     </div>
+   <div>
+    onEvent, 引用了 组件 instance 实例
+   </div>
     <div>
       {{a}}
     </div>
@@ -9,7 +12,7 @@
   <style>
   </style>
   <script lang="ts" setup>
-  import { onMounted, getCurrentInstance, onBeforeUnmount, ref, computed} from 'vue'
+  import { onMounted, getCurrentInstance, onBeforeUnmount, ref} from 'vue'
   import Emitter from './../utils/eventBus'
   const a = ref('文案1')
   const instance = getCurrentInstance();

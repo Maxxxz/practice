@@ -1,13 +1,14 @@
 <template>
   <div>
-    about
-    <button @click="handleClick" id="aaa">{{ text }}</button>
-    <button @click="handleClick" id="bbb">bbb</button>
-    <label><input type="radio" v-model="current" :value="Name" /> A</label>
-    <label><input type="radio" v-model="current" :value="Name2" /> B</label>
-    <KeepAlive >
-      <component :is="current"/>
-    </KeepAlive>
+    <div>keepAlive</div>
+    <div>keepAlive component, 页面移除前不会触发</div>
+    <div>
+      <label><input type="radio" v-model="current" :value="Name" /> A</label>
+      <label><input type="radio" v-model="current" :value="Name2" /> B</label>
+      <KeepAlive >
+        <component :is="current"/>
+      </KeepAlive>
+    </div>
   </div>
 </template>
 
@@ -19,10 +20,6 @@ import Name2 from '../components/Name2.vue';
 let current = shallowRef(Name)
 
 const text = ref('aaa')
-
-const handleClick = function(){
-  console.log('click')
-}
 
 onMounted(()=>{
   const instance = getCurrentInstance();

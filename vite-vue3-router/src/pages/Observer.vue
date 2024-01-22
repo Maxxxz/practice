@@ -2,6 +2,9 @@
     <div id="divObe" ref="divObe">
       Oberver
     </div>
+    <div>
+      IntersectionObserver 监听元素显示隐藏，没有 disconnect
+    </div>
     <div id="divObeHide" ref="divObeHide">
       123
     </div>

@@ -1,6 +1,9 @@
 <template>
-    <div @click="handleClick">
-      emitterEvent
+    <div>
+      <button @click="handleClick">emitterEvent</button>
+    </div>
+    <div>
+      触发事件传递，传递了自身 instance
     </div>
     <div>
       {{a}}
@@ -13,11 +16,6 @@
   import Emitter from './../utils/eventBus'
   const a = ref('文案2')
   const instance = getCurrentInstance();
-
-  // Emitter.on('maxiTest', function(){
-  //   console.log('emitter on', {a: 1})
-  //   a.value = 'emit'
-  // })
 
   const handleClick = function(){
     console.log('emit success')

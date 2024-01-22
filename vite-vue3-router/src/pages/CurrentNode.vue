@@ -1,6 +1,9 @@
 <template>
-    <div id="divInstance" ref="divInstance">
-      currentNode 点击切换文案
+    <div>
+      <button ref="divInstance">currentNode 点击切换文案</button>
+    </div>
+    <div>
+      addEventListener 监听当前dom点击，没有 remove
     </div>
     <div>
       {{a}}
