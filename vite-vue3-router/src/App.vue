@@ -7,6 +7,7 @@ import Observer from './pages/Observer.vue'
 import CurrentNode from './pages/CurrentNode.vue'
 import EventBusEmit from './pages/EventBusEmit.vue'
 import EventBusOn from './pages/EventBusOn.vue'
+import PromiseVue from './pages/PromiseVue.vue'
 
 const routes = {
   '/': Home,
@@ -16,8 +17,7 @@ const routes = {
   '/hello': HelloWorld,
   '/eventBusEmit': EventBusEmit,
   '/eventBusOn': EventBusOn,
-  
-
+  '/promiseVue': PromiseVue
 }
 
 const currentPath = ref(window.location.hash)
@@ -40,6 +40,7 @@ const currentView = computed(() => {
     <!-- <a href="#/hello">hello</a> | -->
     <a href="#/eventBusEmit">EventBusEmit</a> |
     <a href="#/eventBusOn">EventBusOn</a> |
+    <a href="#/promiseVue">PromiseVue</a> |
   </div>
   <component :is="currentView" />
 </template>

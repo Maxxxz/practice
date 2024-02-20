@@ -24,7 +24,7 @@ const instance = getCurrentInstance();
 // 具名函数 + 引用了vue实例 + 主动remove，会被卸载
 function cc(e){
   // 增加引用instance后，实例不会被释放
-  console.log('maxilog click instance', instance.isUnmounted)
+  console.log('maxilog resize instance.isUnmounted', instance.isUnmounted)
   instance.isUnmounted
   aa.value = e.timeStamp + ''
   // console.log('aa', aa)

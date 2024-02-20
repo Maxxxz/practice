@@ -20,7 +20,7 @@
   Emitter.on('maxiTest', function(obj: any){
     console.log('emitter on a', instance.subTree)
     a.value = 'emit'
-    console.log('emitter on obj', obj, obj.instance)
+    // console.log('emitter on obj', obj, obj.instance)
   })
 
   onMounted(()=>{

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function singleton(cls) {
+            let instance;
+            return function() {
+                if (!instance) {
+                instance = new cls(...arguments);
+                }
+                return instance;
+            };
+        }
+
+        @singleton
+        class MyClass {
+            constructor(val) {
+                this.val = val;
+            }
+        }
+
+        const a = new MyClass(1);
+        const b = new MyClass(2);
+        console.log(a === b); // 输出 true
+
+    </script>
+</body>
+</html>

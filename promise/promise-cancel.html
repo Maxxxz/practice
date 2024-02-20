@@ -1,0 +1,64 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>%u54C8%u54C8</title>
+    </head>
+    <body>
+        <div>&#34;;%3C;&lt;&lt;</div>
+        <!-- <script src="./promise2.js"></script> -->
+        <!-- <script src="./promise3.js"></script> -->
+        <script>
+            function promiseCancelAble(excutor) {
+                let cancel = () => {};
+                const promise = new Promise((reslove, reject) => {
+                    cancel = () => reject('cancel');
+                    excutor(reslove, reject);
+                })
+
+                promise.catch((err) => {
+                    // 此处需要捕获下，否则会导致意外的error抛出
+                    console.error('maxilog promiseCancelAble2 err', err);
+                });
+
+                return { promise, cancel };
+            }
+
+            function timeoutPromise(delayTime = 1000, value = '') {
+                let timeoutInstance;
+                const promise = new Promise((res) => {
+                    timeoutInstance = setTimeout(() => {
+                    res('timeout');
+                    }, delayTime);
+                });
+
+                return {
+                    promise,
+                    cancel: () => clearTimeout(timeoutInstance),
+                };
+            }
+
+            const {promise, cancel} = promiseCancelAble((reslove, reject) => {
+                timeoutPromise(100000).promise.then((...args)=>{
+                    reslove(...args)
+                })
+            });
+            const p1 = promise.finally(res => {
+                console.log('res', res)
+            })
+            
+
+            promise.catch((err)=>{
+                console.log('catch', err)
+            })
+
+            Promise.race([timeoutPromise(2000).promise, Promise.all([p1,  timeoutPromise(1000).promise])]).catch((err)=>{
+                console.error('race error', err)
+            })
+            setTimeout(()=>{
+                cancel()
+            }, 100);
+
+        </script>
+    </body>
+</html>
