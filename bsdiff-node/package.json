@@ -1,0 +1,14 @@
+{
+  "name": "bsdiff-node",
+  "version": "1.0.0",
+  "description": "practice bsdiff",
+  "main": "diff.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "maxi",
+  "license": "ISC",
+  "dependencies": {
+    "bsdiff-node": "^2.5.0"
+  }
+}
