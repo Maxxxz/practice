@@ -1,0 +1,14 @@
+{
+  "name": "asar-pack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "maxi",
+  "license": "ISC",
+  "dependencies": {
+    "@electron/asar": "^3.2.9"
+  }
+}

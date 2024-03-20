@@ -3,7 +3,9 @@ node_modules
 my-taro-app
 rust/**/target
 **/dist/
+**/unpack/
 **/releases/
 **/packs/
 .DS_Store
 .app/
+**/asar/

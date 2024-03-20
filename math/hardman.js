@@ -1,25 +1,27 @@
 /*
 // https://juejin.cn/post/7338325570087043112
 
-new LazyMan('煎饼狗子').drink('水') 输出
+new LazyMan('tony').drink('水') 
+// 输出
+我是 tony
+喝 水
 
-我是煎饼狗子
-喝喝喝 水
+new LazyMan('tony').drink('水').sleep(3000).eat('早餐') 
+// 输出
 
-new LazyMan('煎饼狗子').drink('水').sleep(3000).eat('憨包') 输出
-
-我是煎饼狗子
-喝喝喝 水
+我是tony
+喝 水
 // ......在这里等了3000ms
 睡了3000ms，起床
-吃吃吃 憨包
+吃 早餐
 
-new LazyMan('煎饼狗子').drink('可乐').sleepFirst(1000) 输出
+new LazyMan('tony').drink('可乐').sleepFirst(1000) 
+// 输出
 
 // ......在这里等了1000ms
 睡了1000ms，起床
-我是煎饼狗子
-喝喝喝 可乐
+我是tony
+喝 可乐
 
 */
 
