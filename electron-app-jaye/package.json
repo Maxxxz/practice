@@ -2,7 +2,7 @@
   "name": "jaye-electron-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ./src/main.js --max-old-space-size=8096",
@@ -11,7 +11,10 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "electron": "^26.2.0"
+  "devDependencies": {
+    "electron": "^26.0.0",
+    "electron-builder": "^24.6.4",
+    "electron-installer-dmg": "^4.0.0",
+    "electron-packager": "^17.1.2"
   }
 }
