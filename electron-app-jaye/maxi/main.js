@@ -5,7 +5,7 @@ const https = require('https')
 
 function registerDeepLink(){
   // 注册 deeplink
-  if (process.defaultApp {
+  if (process.defaultApp) {
     if (process.argv.length >= 2) {
       app.setAsDefaultProtocolClient('maxi-fiddle', process.execPath, [path.resolve(process.argv[1])])
     }

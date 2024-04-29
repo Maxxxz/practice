@@ -1,7 +1,9 @@
 const { app, BrowserWindow, ipcMain, webContents, screen } = require('electron')
 const path = require('path')
-const fs = require('fs')
-const https = require('https')
+// const fs = require('fs')
+// const https = require('https')
+
+const pkg = require('./../package.json')
 
 function registerDeepLink(){
   // 注册 deeplink
@@ -19,6 +21,7 @@ registerDeepLink()
 
 // 创建window的时候才撞见deeplink
 function createMainWindow () {
+  console.log('version', pkg.version)
   const mainWin = new BrowserWindow({
     width: 800,
     height: 600,
