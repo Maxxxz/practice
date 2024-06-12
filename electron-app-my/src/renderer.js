@@ -14,3 +14,9 @@ document.getElementById('drag1').ondragstart = (event) => {
     window.electron.createWin('src/pages/person.html')
    
   }
+
+  document.getElementById('wopen').onclick = (event) => {
+    event.preventDefault()
+    window.open('https://github.com', 'maxi222', JSON.stringify({a: 1, b: 2}))
+    // window.open('', '_blank')
+  }
