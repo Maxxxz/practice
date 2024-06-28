@@ -13,7 +13,7 @@ function stop(time){
 app.use(async (ctx, next) => {
     console.log('url', ctx.url);
     console.log('a0')
-    await stop(3000);
+    await stop(2000);
     ctx.body = {
         data: 1,
     };

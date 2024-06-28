@@ -52,4 +52,12 @@ contextBridge.exposeInMainWorld('electron', {
     // 发送给主进程
     // window.open('file://Users/maxi/Desktop/git/maxi-github/practice/my-electron-app/pages/person.html')
   },
+  openBV1: () => {
+    console.log('electron exposeInMainWorld createWin')
+    ipcRenderer.send('openBV1')
+  },
+  openBV2: () => {
+    console.log('electron exposeInMainWorld createWin')
+    ipcRenderer.send('openBV2')
+  },
 })

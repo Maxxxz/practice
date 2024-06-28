@@ -3,15 +3,17 @@ const path = require('path')
 const fs = require('fs')
 const https = require('https')
 const childProcess = require("child_process")
+const { setView1, setView2 } = require('./broswer-views/view1.js')
 // 开发环境
 // const { createChildWindow } = require('/maxi.asar/main.js') 
 // 打包之后 需要手动拷贝下链接去实现
 // const { createChildWindow } = require('../../../../maxi.asar/main.js')
 // 创建window的时候才撞见deeplink
+let mainWin = null;
 function createMainWindow () {
   const icon = path.join(__dirname, 'icon.png')
   // const appIcon = new Tray(icon)
-  const mainWin = new BrowserWindow({
+  mainWin = new BrowserWindow({
     width: 1200,
     height: 800,
     icon,
@@ -24,6 +26,11 @@ function createMainWindow () {
   // mainWin.setIcon(appIcon)
   mainWin.loadFile('index.html')
   mainWin.webContents.openDevTools()
+
+  mainWin.on('ready-to-show', () => {
+    console.log('show1 ')
+    // mainWin.show()
+  })
 }
 
 function createSubWindow (filePath) {
@@ -83,6 +90,17 @@ ipcMain.on('onCreateAsarWindow', (event) => {
     cWin.on('close', (code) => {
       console.log(`child process exited with code ${code}`);
     }); 
+})
+
+
+ipcMain.on('openBV1', (event) => {
+  console.log('ipcMain openBV1')
+  setView1(mainWin)
+})
+
+ipcMain.on('openBV2', (event) => {
+  console.log('ipcMain openBV2')
+  setView2(mainWin)
 })
 
 app.whenReady().then(()=>{

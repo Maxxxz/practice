@@ -9,4 +9,15 @@
     window.electron.createAsar()
   }
 
+  document.getElementById('openBV1').onclick = (event) => {
+    event.preventDefault()
+    window.electron.openBV1()
+  }
+
+  document.getElementById('openBV2').onclick = (event) => {
+    event.preventDefault()
+    window.electron.openBV2()
+  }
+    
+
   
