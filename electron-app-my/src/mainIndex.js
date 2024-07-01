@@ -50,7 +50,7 @@ function createMainWindow () {
       preload: path.join(__dirname, 'preload.js'),
       webSecurity: false,
       nodeIntegration: true,
-      // partition: 'cookies:maxi',
+      partition: 'cookies:maxi',
     }
   })
 
@@ -65,9 +65,35 @@ function createMainWindow () {
 
 }
 
+function createGithubWindow () {
+  session.fromPartition('cookies:github')
+   const mainWin = new BrowserWindow({
+     width: 800,
+     height: 600,
+     webPreferences: {
+       preload: path.join(__dirname, 'preload.js'),
+       webSecurity: false,
+       nodeIntegration: true,
+       partition: 'cookies:github',
+     }
+   })
+ 
+   mainWin.loadURL('https://github.com')
+   mainWin.webContents.openDevTools()
+  //  windowOpenHandler(mainWin)
+   
+   ipcMain.on('onCreateSubWindow', (event, filePath) => {
+     console.log('ipcMain ondragstart', filePath)
+     createSubWindow(filePath)
+   })
+ 
+ }
+ 
+
 
 app.whenReady().then(()=>{
   createMainWindow()
+  createGithubWindow()
 })
 
 app.on('window-all-closed', () => {
@@ -79,6 +105,7 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createMainWindow()
+    createGithubWindow()
   }
 })
 // 处理协议 在本例中，我们选择显示一个错误提示对话框。

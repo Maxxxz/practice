@@ -1,27 +1,45 @@
-const { app, BrowserWindow, ipcMain, webContents, screen } = require('electron')
+const { app, BrowserWindow, ipcMain, webContents, screen, dialog } = require('electron')
 const path = require('path')
 // const fs = require('fs')
 // const https = require('https')
 
-const pkg = require('./../package.json')
-
 function registerDeepLink(){
   // 注册 deeplink
   if (process.defaultApp) {
+    console.log('process.argv', process.argv)
     if (process.argv.length >= 2) {
-      app.setAsDefaultProtocolClient('maxi-fiddle', process.execPath, [path.resolve(process.argv[1])])
+      console.log('process.argv >=2', path.resolve(process.argv[1]))
+      app.setAsDefaultProtocolClient('jayeLink', process.execPath, [path.resolve(process.argv[1])])
     }
+    console.log('jaye registerDeepLink')
   } else {
-    console.log('maxi easy')
-    app.setAsDefaultProtocolClient('maxi-fiddle')
+    console.log('jaye easy')
+    app.setAsDefaultProtocolClient('jayeLink')
   }
+
+  // mac
+  // 处理协议 在本例中，我们选择显示一个错误提示对话框。
+  app.on('open-url', (event, url) => {
+    console.log('on open-url event', event)
+    console.log('on open-url url', url)
+    dialog.showErrorBox('欢迎回来1', `导向自: ${url}`)
+  })
+
+  // win
+  // app.on('second-instance', (event, commandLine, workingDirectory) => {
+  //   // 用户正在尝试运行第二个实例，我们需要让焦点指向我们的窗口
+  //   if (mainWindow) {
+  //     if (mainWindow.isMinimized()) mainWindow.restore()
+  //     mainWindow.focus()
+  //   }
+  //   // 命令行是一个字符串数组，其中最后一个元素是深度链接的URL。
+  //   dialog.showErrorBox('Welcome Back', `You arrived from: ${commandLine.pop()}`)
+  // })
 }
 // 直接注册，有这个app就能通过deeplink打开
 registerDeepLink()
 
-// 创建window的时候才撞见deeplink
 function createMainWindow () {
-  console.log('version', pkg.version)
   const mainWin = new BrowserWindow({
     width: 800,
     height: 600,
@@ -39,16 +57,8 @@ function createMainWindow () {
 
 app.whenReady().then(()=>{
   createMainWindow()
-  // registerDeepLink()
 })
 
-ipcMain.on('ondragstart', (event, filePath) => {
-  console.log('ipcMain ondragstart', filePath)
-  event.sender.startDrag({
-    file: path.join(__dirname, filePath),
-    icon: iconName
-  })
-})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -61,11 +71,7 @@ app.on('activate', () => {
     createMainWindow()
   }
 })
-// 处理协议 在本例中，我们选择显示一个错误提示对话框。
-app.on('open-url', (event, url) => {
-  console.log('on open-url', url)
-  // dialog.showErrorBox('欢迎回来', `导向自: ${url}`)
-})
+
 // Electron 在完成初始化，并准备创建浏览器窗口时，
 // 会调用这个方法。
 // 部分 API 在 ready 事件触发后才能使用。

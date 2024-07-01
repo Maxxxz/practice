@@ -1,5 +1,5 @@
 {
-  "name": "jaye-electron-app",
+  "name": "jaye1-electron-app",
   "version": "1.0.0",
   "description": "",
   "main": "src/main.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ./src/main.js --max-old-space-size=8096",
     "build": "electron-builder",
-    "pack": "npx electron-installer-dmg src maxiFirstElec --platform=darwin --arch=x64 --out=packs --overwrite"
+    "pack": "npx electron-packager ./src jayeapp1 --darwin --arch=arm64 --out ./packs --overwrite  --protocol=jayeLink --protocol-name=Jaye-Link"
   },
   "author": "",
   "license": "ISC",

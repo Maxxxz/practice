@@ -10,8 +10,10 @@ module.exports.windowOpenHandler = function(mainWindow) {
         domain: 'github.com',
         name: 'maxicookies',
         // 老pcqq的p_uin不补0, 需要对齐
-        value: 'abc',
+        value: 'abcd',
     })
+    session.fromPartition('cookies:jaye')
+
     mainWindow.webContents.setWindowOpenHandler(({ url, ...args }) => {
         console.log('in windowOpenHandler url:', url)
         // console.log('args', args)
@@ -19,12 +21,14 @@ module.exports.windowOpenHandler = function(mainWindow) {
           return {
             action: 'allow',
             overrideBrowserWindowOptions: {
-              frame: false,
+              frame: true,
               fullscreenable: false,
               backgroundColor: 'black',
               webPreferences: {
                   devTools: true,
-                  partition: 'cookies:maxi2',
+                  // session: session.fromPartition('cookies:jaye')
+                  partition: 'cookies:maxi',
+                  // partition: session.fromPartition('cookies:jaye')
                 // preload: 'my-child-window-preload-script.js'
               }
             }
@@ -36,10 +40,17 @@ module.exports.windowOpenHandler = function(mainWindow) {
     mainWindow.webContents.on('did-create-window', (window, details) => {
         console.log('maxilog d-cre-details', details)
         window.webContents.openDevTools()
+      //   window.webContents.session.cookies.set({
+      //     url: 'https://github.com',
+      //     domain: 'github.com',
+      //     name: 'maxicookies',
+      //     // 老pcqq的p_uin不补0, 需要对齐
+      //     value: '123',
+      // })
     })
 
-    mainWindow.webContents.on('did-create-window', (window, details) => {
-        console.log('maxilog d-cre-details2', details)
-        window.webContents.openDevTools()
-    })
+    // mainWindow.webContents.on('did-create-window', (window, details) => {
+    //     console.log('maxilog d-cre-details2', details)
+    //     window.webContents.openDevTools()
+    // })
 }

@@ -38,16 +38,16 @@ const path = require('path');
 
 const { contextBridge, ipcRenderer } = require('electron')
 
-contextBridge.exposeInMainWorld('electron', {
-  startDrag: (fileName) => {
-    console.log('electron exposeInMainWorld startDrag', fileName)
-    ipcRenderer.send('ondragstart', fileName)
-    // 发送给主进程
-  },
-  createWin: (fileName) => {
-    console.log('electron exposeInMainWorld createWin', fileName)
-    ipcRenderer.send('onCreateSubWindow', fileName)
-    // 发送给主进程
-    // window.open('file://Users/maxi/Desktop/git/maxi-github/practice/my-electron-app/pages/person.html')
-  },
-})
+// contextBridge.exposeInMainWorld('electron', {
+//   startDrag: (fileName) => {
+//     console.log('electron exposeInMainWorld startDrag', fileName)
+//     ipcRenderer.send('ondragstart', fileName)
+//     // 发送给主进程
+//   },
+//   createWin: (fileName) => {
+//     console.log('electron exposeInMainWorld createWin', fileName)
+//     ipcRenderer.send('onCreateSubWindow', fileName)
+//     // 发送给主进程
+//     // window.open('file://Users/maxi/Desktop/git/maxi-github/practice/my-electron-app/pages/person.html')
+//   },
+// })
