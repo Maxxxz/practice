@@ -8,18 +8,23 @@ app.whenReady().then(()=>{
         // offscreen: true,
         // transparent: false
     });
-    view1.webContents.loadURL('http://192.168.255.10:3000')
 })
 
 
 function setView1(mainWin){
+    // koa的server
+    view1.webContents.loadURL('http://127.0.0.1:3000')
+    view1.setBackgroundColor('#fff')
+    view1.setBounds({ x: 400, y: 0,width: 800, height: 500 })
+    setTimeout(()=>{
+        mainWin.setBrowserView(view1)
+        view1.setBounds({ x: 400, y: 0, width: 800, height: 500 })
+    }, 0)
     
-    mainWin.setBrowserView(view1)
     
-    view1.setBounds({ x: 400, y: 0, width: 800, height: 500 })
-    view1.setBackgroundColor('#000')
     console.log('show 0')
     // mainWin.show()
+    console.log('show 1')
     // view1.webContents.
 }
 
