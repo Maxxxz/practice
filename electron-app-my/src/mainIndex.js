@@ -11,7 +11,7 @@ require('./business/deeplink.js');
 
 
 // 这个fork不行，拿不到electron
-// utilityProcess.fork(path.join(__dirname, 'childs/a.js'))4
+// utilityProcess.fork(path.join(__dirname, 'childs/a.js'))
 
 function createSubWindow (filePath) {
   // console.log('webContents', webContents)
