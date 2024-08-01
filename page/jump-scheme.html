@@ -1,0 +1,46 @@
+<!--
+ * @Author: maxizhang
+ * @Date: 2022-04-08 11:11:47
+ * @FilePath: /practice/page/div.html
+ * @Description: 
+ * @LastEditors: maxizhang
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>div</title>
+    <script src="https://qzonestyle.gtimg.cn/qzone/qzact/act/external/weishi/ugactivity/eruda.js"></script>
+    <script>window.eruda.init();</script>
+    <style>
+        .box {
+            width: 500px;
+            height: 500px;
+            background-color: aqua;
+        }
+        .inner {
+            color: balck;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <a href="tencent://DynamicPackage?protocolSourceNative=1&business=gameCenterQQPlay&openSource=ntqqPcRightBottomTips&openParams=%7B%22startUrl%22%3A%22https%3A%2F%2Fplay.qq.com%2Findex%3Fadtag%3D%26appPath%3D%252Fdetail%253Faction%253Dmy-coupon%2526adtag%253Dnewqq_redpoint%2526actionParams%253D2000000109%2526gameId%253D4_2000000109%22%7D">href</a>
+        <div id="dd"> location.href jump</div>
+        <div id="ww"> window.open jump</div>
+    </div>
+    <script>
+        document.querySelector('#dd').addEventListener('click', function(){
+            console.log(1)
+            location.href = 'tencent://DynamicPackage?protocolSourceNative=1&business=gameCenterQQPlay&openSource=ntqqPcRightBottomTips&openParams=%7B%22startUrl%22%3A%22https%3A%2F%2Fplay.qq.com%2Findex%3Fadtag%3D%26appPath%3D%252Fdetail%253Faction%253Dmy-coupon%2526adtag%253Dnewqq_redpoint%2526actionParams%253D2000000109%2526gameId%253D4_2000000109%22%7D'
+        })
+
+        document.querySelector('#ww').addEventListener('click', function(){
+            console.log(1)
+            window.open('tencent://DynamicPackage?protocolSourceNative=1&business=gameCenterQQPlay&openSource=ntqqPcRightBottomTips&openParams=%7B%22startUrl%22%3A%22https%3A%2F%2Fplay.qq.com%2Findex%3Fadtag%3D%26appPath%3D%252Fdetail%253Faction%253Dmy-coupon%2526adtag%253Dnewqq_redpoint%2526actionParams%253D2000000109%2526gameId%253D4_2000000109%22%7D')
+        })
+    </script>
+</body>
+</html>
