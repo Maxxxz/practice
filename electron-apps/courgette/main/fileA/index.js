@@ -472,14 +472,14 @@ export class BaseLocalClient {
     this.startHeartbeat(callback);
   }
 
-  // private static startHeartbeat(callback: () => void) {
-  //   this.heartBeatTimer = setTimeout(async () => {
-  //     this.heartBeatTimer = null;
-  //     this.heartBeatCount++;
-  //     await this.checkPortHeartBeat(callback);
-  //     await BaseLocalClient.checkAliveServerLen();
-  //   }, HEART_BEAT_TIME);
-  // }
+  private static startHeartbeat(callback: () => void) {
+    this.heartBeatTimer = setTimeout(async () => {
+      this.heartBeatTimer = null;
+      this.heartBeatCount++;
+      await this.checkPortHeartBeat(callback);
+      await BaseLocalClient.checkAliveServerLen();
+    }, HEART_BEAT_TIME);
+  }
 
   /** 过滤重复的登录实例 */
   private static filterRepeatUin() {

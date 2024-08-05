@@ -1,0 +1,202 @@
+[0802/132543:VERBOSE1:ensemble_create.cc(215)] start GenerateEnsemblePatch
+[0802/132543:VERBOSE1:ensemble_create.cc(116)] done FindEmbeddedElements 0
+[0802/132543:VERBOSE1:ensemble_create.cc(122)] old has 0 elements
+[0802/132543:VERBOSE1:ensemble_create.cc(123)] new has 0 elements
+[0802/132543:VERBOSE1:ensemble_create.cc(133)] done make bases 0s
+[0802/132543:VERBOSE1:ensemble_create.cc(196)] done FindGenerators found 0 in 0s
+[0802/132543:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/132543:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/132543:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/132543:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/132543:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/132543:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/132543:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/132543:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/132543:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 11 11
+[0802/132543:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/132543:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/132543:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 9  mistakes: 0  (skips: 1)  extra bytes: 2
+Uncompressed bsdiff patch size 36
+End bsdiff 0
+[0802/132543:VERBOSE1:ensemble_create.cc(418)] done GenerateEnsemblePatch 0s
+[0802/132543:WARNING:file_util_win.cc(776)] CreateFile failed for path D:\git\myself\practice\electron-apps\courgette\main\result\ error code=123
+[0802/132605:VERBOSE1:ensemble_create.cc(215)] start GenerateEnsemblePatch
+[0802/132605:VERBOSE1:ensemble_create.cc(116)] done FindEmbeddedElements 0
+[0802/132605:VERBOSE1:ensemble_create.cc(122)] old has 0 elements
+[0802/132605:VERBOSE1:ensemble_create.cc(123)] new has 0 elements
+[0802/132605:VERBOSE1:ensemble_create.cc(133)] done make bases 0s
+[0802/132605:VERBOSE1:ensemble_create.cc(196)] done FindGenerators found 0 in 0s
+[0802/132605:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/132605:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/132605:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/132605:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/132605:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/132605:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/132605:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/132605:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/132605:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 11 11
+[0802/132605:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/132605:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/132605:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 9  mistakes: 0  (skips: 1)  extra bytes: 2
+Uncompressed bsdiff patch size 36
+End bsdiff 0
+[0802/132605:VERBOSE1:ensemble_create.cc(418)] done GenerateEnsemblePatch 0s
+[0802/150154:ERROR:file_util.cc(345)] Couldn't open D:\git\myself\practice\electron-apps\courgette\main\result.txt
+[0802/150628:VERBOSE1:ensemble_create.cc(215)] start GenerateEnsemblePatch
+[0802/150628:VERBOSE1:ensemble_create.cc(116)] done FindEmbeddedElements 0
+[0802/150628:VERBOSE1:ensemble_create.cc(122)] old has 0 elements
+[0802/150628:VERBOSE1:ensemble_create.cc(123)] new has 0 elements
+[0802/150628:VERBOSE1:ensemble_create.cc(133)] done make bases 0s
+[0802/150628:VERBOSE1:ensemble_create.cc(196)] done FindGenerators found 0 in 0s
+[0802/150628:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/150628:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/150628:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/150628:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/150628:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/150628:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/150628:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/150628:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/150628:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 11 11
+[0802/150628:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/150628:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/150628:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 11  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/150628:VERBOSE1:ensemble_create.cc(418)] done GenerateEnsemblePatch 0.001s
+[0802/150637:VERBOSE1:ensemble_create.cc(215)] start GenerateEnsemblePatch
+[0802/150637:VERBOSE1:ensemble_create.cc(116)] done FindEmbeddedElements 0
+[0802/150637:VERBOSE1:ensemble_create.cc(122)] old has 0 elements
+[0802/150637:VERBOSE1:ensemble_create.cc(123)] new has 0 elements
+[0802/150637:VERBOSE1:ensemble_create.cc(133)] done make bases 0s
+[0802/150637:VERBOSE1:ensemble_create.cc(196)] done FindGenerators found 0 in 0s
+[0802/150637:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/150637:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/150637:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/150637:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/150637:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/150637:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/150637:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/150637:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/150637:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 11 11
+[0802/150637:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/150637:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/150637:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 11  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/150637:VERBOSE1:ensemble_create.cc(418)] done GenerateEnsemblePatch 0s
+[0802/151940:VERBOSE1:ensemble_create.cc(215)] start GenerateEnsemblePatch
+[0802/151940:VERBOSE1:ensemble_create.cc(116)] done FindEmbeddedElements 0
+[0802/151940:VERBOSE1:ensemble_create.cc(122)] old has 0 elements
+[0802/151940:VERBOSE1:ensemble_create.cc(123)] new has 0 elements
+[0802/151940:VERBOSE1:ensemble_create.cc(133)] done make bases 0s
+[0802/151940:VERBOSE1:ensemble_create.cc(196)] done FindGenerators found 0 in 0s
+[0802/151940:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/151940:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/151940:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/151940:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/151940:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/151940:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/151940:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/151940:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/151940:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 152987 152987
+[0802/151940:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/151940:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0.027
+[0802/151940:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 152987  mistakes: 0  (skips: 3)  extra bytes: 0
+Uncompressed bsdiff patch size 44
+End bsdiff 0.028
+[0802/151940:VERBOSE1:ensemble_create.cc(418)] done GenerateEnsemblePatch 0.03s
+[0802/152004:VERBOSE1:ensemble_create.cc(215)] start GenerateEnsemblePatch
+[0802/152004:VERBOSE1:ensemble_create.cc(116)] done FindEmbeddedElements 0
+[0802/152004:VERBOSE1:ensemble_create.cc(122)] old has 0 elements
+[0802/152004:VERBOSE1:ensemble_create.cc(123)] new has 0 elements
+[0802/152004:VERBOSE1:ensemble_create.cc(133)] done make bases 0s
+[0802/152004:VERBOSE1:ensemble_create.cc(196)] done FindGenerators found 0 in 0s
+[0802/152004:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/152004:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/152004:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/152004:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/152004:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/152004:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/152004:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/152004:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/152004:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 11 152987
+[0802/152004:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/152004:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/152004:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 0  mistakes: 0  (skips: 1)  extra bytes: 152987
+Uncompressed bsdiff patch size 153027
+End bsdiff 0.005
+[0802/152004:VERBOSE1:ensemble_create.cc(418)] done GenerateEnsemblePatch 0.005s
+[0802/152207:VERBOSE1:ensemble_create.cc(215)] start GenerateEnsemblePatch
+[0802/152207:VERBOSE1:ensemble_create.cc(116)] done FindEmbeddedElements 0
+[0802/152207:VERBOSE1:ensemble_create.cc(122)] old has 0 elements
+[0802/152207:VERBOSE1:ensemble_create.cc(123)] new has 0 elements
+[0802/152207:VERBOSE1:ensemble_create.cc(133)] done make bases 0s
+[0802/152207:VERBOSE1:ensemble_create.cc(196)] done FindGenerators found 0 in 0s
+[0802/152207:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/152207:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/152207:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/152207:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/152207:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/152207:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/152207:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/152207:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/152207:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 14882 14906
+[0802/152207:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/152207:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0.002
+[0802/152207:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 9  copy bytes: 14890  mistakes: 0  (skips: 2)  extra bytes: 16
+Uncompressed bsdiff patch size 81
+End bsdiff 0.002
+[0802/152207:VERBOSE1:ensemble_create.cc(418)] done GenerateEnsemblePatch 0.002s
+[0802/163526:VERBOSE1:ensemble_create.cc(215)] start GenerateEnsemblePatch
+[0802/163526:VERBOSE1:ensemble_create.cc(116)] done FindEmbeddedElements 0
+[0802/163526:VERBOSE1:ensemble_create.cc(122)] old has 0 elements
+[0802/163526:VERBOSE1:ensemble_create.cc(123)] new has 0 elements
+[0802/163526:VERBOSE1:ensemble_create.cc(133)] done make bases 0s
+[0802/163526:VERBOSE1:ensemble_create.cc(196)] done FindGenerators found 0 in 0s
+[0802/163526:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/163526:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/163526:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/163526:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/163526:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 15 15
+[0802/163526:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/163526:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/163526:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 15  mistakes: 0  (skips: 1)  extra bytes: 0
+Uncompressed bsdiff patch size 34
+End bsdiff 0
+[0802/163526:VERBOSE1:simple_delta.cc(36)] GenerateSimpleDelta 1089 1089
+[0802/163526:VERBOSE1:bsdiff_create.cc(207)] Start bsdiff
+[0802/163526:VERBOSE1:bsdiff_create.cc(240)]  done qsufsort 0
+[0802/163526:VERBOSE1:bsdiff_create.cc(441)] Control tuples: 1  copy bytes: 21  mistakes: 0  (skips: 1)  extra bytes: 1068
+Uncompressed bsdiff patch size 1106
+End bsdiff 0
+[0802/163526:VERBOSE1:ensemble_create.cc(418)] done GenerateEnsemblePatch 0s
