@@ -10,6 +10,7 @@ require('./business/deeplink.js');
 
 
 
+
 // 这个fork不行，拿不到electron
 // utilityProcess.fork(path.join(__dirname, 'childs/a.js'))
 
@@ -40,9 +41,9 @@ function createSubWindow (filePath) {
   })
 }
 
+
 // 创建window的时候才撞见deeplink
 function createMainWindow () {
- session.fromPartition('cookies:maxi')
   const mainWin = new BrowserWindow({
     width: 800,
     height: 600,
@@ -50,13 +51,14 @@ function createMainWindow () {
       preload: path.join(__dirname, 'preload.js'),
       webSecurity: false,
       nodeIntegration: true,
-      partition: 'cookies:maxi',
+      partition: 'persist:maxi',
     }
   })
 
   mainWin.loadFile('index.html')
   mainWin.webContents.openDevTools()
   windowOpenHandler(mainWin)
+  mainWin.webContents.session.cookies.set({ url: 'https://github.com', name: 'dummy_name', value: 'dummy' })
   
   ipcMain.on('onCreateSubWindow', (event, filePath) => {
     console.log('ipcMain ondragstart', filePath)
@@ -66,7 +68,6 @@ function createMainWindow () {
 }
 
 function createGithubWindow () {
-  session.fromPartition('cookies:github')
    const mainWin = new BrowserWindow({
      width: 800,
      height: 600,
@@ -74,12 +75,18 @@ function createGithubWindow () {
        preload: path.join(__dirname, 'preload.js'),
        webSecurity: false,
        nodeIntegration: true,
-       partition: 'cookies:github',
+       partition: 'persist:maxi',
      }
    })
- 
+
+  //  console.log('mainWin.webContents.session.cookies', mainWin.webContents.session.cookies)
+  // mainWin.webContents.session.cookies.set()
    mainWin.loadURL('https://github.com')
    mainWin.webContents.openDevTools()
+   mainWin.webContents.session.setProxy({
+      proxyRules: '127.0.0.1:8088',
+      // proxyBypassRules: ['127.0.0.1', 'locolhost']
+    })
   //  windowOpenHandler(mainWin)
    
    ipcMain.on('onCreateSubWindow', (event, filePath) => {
@@ -87,13 +94,20 @@ function createGithubWindow () {
      createSubWindow(filePath)
    })
  
- }
+}
  
 
 
 app.whenReady().then(()=>{
-  createMainWindow()
+
+  const sesMain = session.fromPartition('persist:maxi')
+  // sesMain.setProxy({
+  //   proxyRules: '127.0.0.1:8088',
+  //   proxyBypassRules: ['127.0.0.1', 'locolhost']
+  // })
+
   createGithubWindow()
+  createMainWindow()
 })
 
 app.on('window-all-closed', () => {

@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, webContents, screen, dialog } = require('electron')
 const path = require('path')
+require('/Users/maxi/Desktop/git/maxi-github/practice/electron-apps/asar/test0.asar')
 // const fs = require('fs')
 // const https = require('https')
 
@@ -50,7 +51,7 @@ function createMainWindow () {
     }
   })
 
-  mainWin.loadFile('index.html')
+  mainWin.loadFile(path.join(__dirname, 'index.html'),)
   mainWin.webContents.openDevTools()
 
 }

@@ -49,10 +49,15 @@ async function walkDirAndCalcMd5(dirPath) {
     writeStream.end();
 };
 
-walkDirAndCalcMd5("/path/to/your/directory").catch(console.error);
+// walkDirAndCalcMd5("/path/to/your/directory").catch(console.error);
 
-const app = path.join('/Users/maxi/Library/Containers/com.tencent.qq/Data/Library/Application Support/QQ/err1/6.9.53-26270/QQUpdate.app');
-console.log('app', app)
-walkDirAndCalcMd5(app).catch(console.error);
+const app = path.join('/Users/maxi/Downloads/6.9.55-qqexAsar-28860.zip.zip');
+// console.log('app', app)
+// walkDirAndCalcMd5(app).catch(console.error);
 
+async function test(){
+    const res = await calcFileMd5(app)
+    console.log('res', res)
+}
+test();
 

@@ -5,7 +5,7 @@ const crypto = require('crypto');
 console.time();
 // const buffer = fs.readFileSync(path.join(__dirname, 'asar/2.16.2.asar'));
 // const buffer = fs.readFileSync(path.join(__dirname, 'asar/application.asar'));
-const app = path.join('/Users/maxi/Library/Containers/com.tencent.qq/Data/Library/Application\ Support/QQ/versions/6.9.53-26270/QQUpdate.app');
+const app = path.join('/Users/maxi/Downloads/6.9.55-qqexAsar-28860.zip.zip');
 console.log('app', app)
 const buffer = fs.readFileSync(app);
 
