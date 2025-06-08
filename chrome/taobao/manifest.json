@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "理光小助手",
+  "version": "1.0",
+  "description": "A simple plugin to execute JavaScript alert",
+  "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": [
+        "https://detail.tmall.com/item.htm?id=653921568497*"
+      ]
+    }
+  ]
+}
