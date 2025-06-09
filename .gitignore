@@ -9,3 +9,4 @@ rust/**/target
 .DS_Store
 .app/
 **/asar/
+chrome/mail/src/config.json
