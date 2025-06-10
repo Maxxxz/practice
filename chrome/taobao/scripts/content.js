@@ -20,12 +20,12 @@
     // <a href="mailto:?to=recipient@example.com&subject=Test&body=Hello">点击发送邮件</a>
 
     // window.location.href="mailto:236820310@qq.com?subject=理光&subject=tb来货了&body=测试";
-
+    // senEmail('11测试', '测试');
     function senEmail(title, body) {
-        
-        window.location.href =
-            'mailto:236820310@qq.com?subject=' + title + '&body=' + body;
-        alert(title)
+        fetch('http://localhost:2266/sendMail?title=' + title + '&content=' + body)
+            .then(response => response.json())
+            .then(data => console.log('Response:', data))
+            .catch(error => console.error('Failed to send request: ', error));
     }
 
     function checkAndSendRequest() {

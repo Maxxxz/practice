@@ -1,9 +1,27 @@
 const http = require('http');
+const url = require('url');
+const {sendEmail} = require('./sendEmail');
 
 const server = http.createServer(async (req, res) => {
-  if (req.url === '/sendMail' && req.method === 'GET') {
+  const parsedUrl = url.parse(req.url, true);
+  if (parsedUrl.pathname === '/sendMail' && req.method === 'GET') {
+    const { title, content } = parsedUrl.query;
+    const rr = await sendEmail(title, content);
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ message: 'Mail sent successfully!' }));
+    if(rr){
+        res.end(JSON.stringify({ 
+            message: 'Mail sent successfully!',
+            title,
+            content
+          }));
+    }else {
+        res.end(JSON.stringify({ 
+            message: 'Mail sent successfully!',
+            title,
+            content
+          }));
+    }
+    
   } else {
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ error: 'Not Found' }));

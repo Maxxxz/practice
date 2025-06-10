@@ -26,10 +26,13 @@ async function main(title = 'maxi', content = 'test') {
             text: content, // 文本内容
             // html: "欢迎注册h5.dooring.cn, 您的邮箱验证码是:<b>${emailCode}</b>", // html 内容, 如果设置了html内容, 将忽略text内容
         });
+        console.error('maxilog sendSuc', info)
+        return true
     } catch (error) {
-        console.error('sendError', error)
+        console.error('maxilog sendError', error)
+        return false
     }
 
 }
-main();
-module.exports.main = main;
+
+module.exports.sendEmail = main;
