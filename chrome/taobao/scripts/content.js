@@ -16,11 +16,14 @@
     const refreshInterval = 30 * 1000;
     const randomInterval = 60 * 1000;
     console.log('[maxi] start check liGuang');
-    // location="mailto:sample@fly63.com?subject=test&cc=sample@hotmail.com&subject=主题&body=内容";
-    // <a href="mailto:?to=recipient@example.com&subject=Test&body=Hello">点击发送邮件</a>
 
-    // window.location.href="mailto:236820310@qq.com?subject=理光&subject=tb来货了&body=测试";
-    // senEmail('11测试', '测试');
+    const time = refreshInterval + Math.random() * randomInterval;
+    console.log('[maxi] refresh in ', Math.round(time / 1000), 's');
+    // 随机间隔刷新一次网页
+    const timer = setInterval(() => {
+        location.reload();
+    }, time);
+    
     function senEmail(title, body) {
         fetch('http://localhost:2266/sendMail?title=' + title + '&content=' + body)
             .then(response => response.json())
@@ -29,13 +32,6 @@
     }
 
     function checkAndSendRequest() {
-        const time = refreshInterval + Math.random() * randomInterval;
-        console.log('[maxi] refresh in ', Math.round(time / 1000), 's');
-        // 随机间隔刷新一次网页
-        const timer = setInterval(() => {
-            location.reload();
-        }, time);
-
         // 查找所有class名中含有'Disabled'的元素
         const btn = document
             .querySelector('.jkDKTNzlEM--LeftButtonList--_21fe567')
