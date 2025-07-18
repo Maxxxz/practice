@@ -1,0 +1,16 @@
+{
+  "name": "electron-fiddle-demo",
+  "productName": "electron-fiddle-demo",
+  "description": "My Electron application description",
+  "keywords": [],
+  "main": "./main.js",
+  "version": "1.0.0",
+  "author": "maxi",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "6.6.6"
+  }
+}

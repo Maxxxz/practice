@@ -1,0 +1,17 @@
+#tabs-container {
+  display: flex;
+  background-color: #f1f1f1;
+  padding: 5px;
+}
+
+.tab {
+  padding: 10px 20px;
+  margin-right: 5px;
+  background-color: #ddd;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tab:hover {
+  background-color: #ccc;
+}
