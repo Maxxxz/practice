@@ -1,0 +1,10 @@
+{
+    "name": "my-electron-app",
+    "version": "1.0.0",
+    "description": "My Electron App",
+    "main": "main.js",
+    "productName": "productName-inner-pkgjson",
+    "devDependencies": {
+        "electron": "^34.0.0"
+    }
+  }
