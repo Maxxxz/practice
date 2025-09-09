@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, webContents, screen, Tray  } = require('electron')
+const { app, BrowserWindow, ipcMain  } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const https = require('https')
@@ -10,54 +10,6 @@ const { setView1, setView2 } = require('./broswer-views/view1.js')
 // const { createChildWindow } = require('../../../../maxi.asar/main.js')
 // 创建window的时候才撞见deeplink
 let mainWin = null;
-function createMainWindow () {
-  const icon = path.join(__dirname, 'icon.png')
-  // const appIcon = new Tray(icon)
-  mainWin = new BrowserWindow({
-    width: 1200,
-    height: 800,
-    icon,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      webSecurity: false,
-      nodeIntegration: true,
-    }
-  })
-  // mainWin.setIcon(appIcon)
-  mainWin.loadFile('index.html')
-  mainWin.webContents.openDevTools()
-
-  mainWin.on('ready-to-show', () => {
-    console.log('show1 ')
-    // mainWin.show()
-  })
-}
-
-function createSubWindow (filePath) {
-  console.log('screen width', screen.getPrimaryDisplay().workAreaSize.width)
-  console.log('screen height', screen.getPrimaryDisplay().workAreaSize.height)
-  const screens = screen.getAllDisplays();
-  console.log('screen.getAllDisplays()', screens)
-  const icon = path.join(__dirname, 'aaa.png')
-  const win = new BrowserWindow({
-    // parent: mainWin,
-    modal: false,
-    width: 800,
-    height: 500,
-    icon,
-    webPreferences: {
-      webSecurity: false,
-    }
-  })
-  const fileName = path.join(__dirname, filePath);
-  console.log('fileName', fileName)
-  win.webContents.loadFile(fileName)
-  win.setBounds({ x: 0, y: 0, width: 600, height: 600 })
-  win.webContents.openDevTools()
-  win.once('ready-to-show', () => {
-    win.show()
-  })
-}
 
 ipcMain.on('onCreateSubWindow', (event, filePath) => {
   console.log('ipcMain onCreateSubWindow', filePath)

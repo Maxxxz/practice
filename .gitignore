@@ -10,3 +10,4 @@ rust/**/target
 .app/
 **/asar/
 chrome/mail/src/config.json
+node/qqpkg/
