@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Page</title>
+</head>
+<body>
+    <h1>This is the parent page</h1>
+    <iframe id="app_canvas_frame" name="app_canvas_frame" class="app_canvas_frame" scrolling="no" allowfullscreen="" allowtransparency="yes" src="" frameborder="no" src="" width="600" height="400" onload="iframeOnLoad"></iframe>
+    <script>
+        console.log('document.domain 0', document.domain)
+        document.domain = location.hostname
+        console.log('document.domain 1', document.domain)
+        var onError = function(event) {
+            console.log('maxilog onError', event)
+            var data = {
+                error: event.message,
+                stack: event.error && event.error.stack || '',
+                url: location.href,
+                scriptUrl: event.filename,
+                lineNumber: event.lineno,
+                columnNumber: event.colno
+            };
+            var fn = window.beforeJsErrorReport;
+            if (typeof fn === 'function' && false === fn(data)) {
+                return;
+            }
+        };
+        
+        window.iframeOnLoad = function() {
+            console.log('maxilog 1')
+            var appCanvasFrame = document.getElementsByClassName('app_canvas_frame');
+            console.log('maxilog 2')
+            if(appCanvasFrame.length > 0) {
+                console.log('maxilog 3', appCanvasFrame[0].contentWindow)
+                appCanvasFrame[0].contentWindow.onerror = onError;
+            }
+        }
+        document.getElementsByClassName('app_canvas_frame')[0].src="https://maxizhang.com/iframe-child.html"
+
+        window.maxi = function(child) {
+            console.log('maxilog:', child, onError)
+        }
+        </script>
+</body>
+</html>

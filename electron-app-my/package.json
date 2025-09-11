@@ -5,7 +5,7 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron ./src2/main.js --max-old-space-size=8096",
+    "start": "electron ./src/main.js --max-old-space-size=8096",
     "build": "electron-builder",
     "pack": "npx electron-installer-dmg src maxiFirstElec --platform=darwin --arch=x64 --out=packs --overwrite",
     "asar": "node build/asar"

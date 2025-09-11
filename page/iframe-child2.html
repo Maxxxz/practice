@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Page</title>
+</head>
+<body>
+    <h1>This is the child page2</h1>
+    <script>
+        document.domain = location.hostname
+        console.log('This is a message from the child page2');
+        setTimeout(() => {
+
+            top.maxi('c2')
+
+
+        }, 2000)
+    </script>
+</body>
+</html>

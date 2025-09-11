@@ -1,5 +1,5 @@
 
-const { app, BrowserWindow, ipcMain, webContents, screen, dialog, utilityProcess, session } = require('electron')
+const { app, BrowserWindow, ipcMain, webContents, screen, dialog, utilityProcess, session, WebContentsView, BaseWindow, View } = require('electron')
 // const cluster = require('node:cluster');
 const path = require('path')
 
@@ -95,7 +95,34 @@ function createGithubWindow () {
    })
  
 }
+
+function createBaseWindow(){
+  const rightView = new WebContentsView()
+  setTimeout(()=>{
+      const win = new BaseWindow({ width: 1200, height: 600 })
+    const view = new View()
+
+    view.setBackgroundColor('red')
+    view.setBounds({ x: 800, y: 0, width: 100, height: 100 })
+    win.contentView.addChildView(view)
+
+    const leftView = new WebContentsView()
+    leftView.webContents.loadURL('https://electronjs.org')
+    win.contentView.addChildView(leftView)
+
+
+    // rightView.webContents.loadURL('https://github.com/electron/electron')
+    rightView.webContents.loadURL('https://electronjs.org')
+    win.contentView.addChildView(rightView)
+
+    leftView.setBounds({ x: 0, y: 0, width: 400, height: 600 })
+    rightView.setBounds({ x: 400, y: 0, width: 400, height: 600 })
+  }, 1000)
+
+
+}
  
+
 
 
 app.whenReady().then(()=>{
@@ -106,8 +133,9 @@ app.whenReady().then(()=>{
   //   proxyBypassRules: ['127.0.0.1', 'locolhost']
   // })
 
-  createGithubWindow()
-  createMainWindow()
+  // createGithubWindow()
+  // createMainWindow()
+  createBaseWindow()
 })
 
 app.on('window-all-closed', () => {

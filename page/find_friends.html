@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html>
+	<script>
+		try{
+			console.log('maxi location.hostname', location.hostname)
+			console.log('maxi document.domain', document.domain, document.domain === location.hostname)
+			document.domain = location.hostname
+            console.log('maxi top', top)
+			top.QZONE.FP.toApp('myhome/friends')
+		}catch(err){
+            console.error('maxi', err)
+        }
+	</script>
+</html>

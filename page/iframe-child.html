@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Page</title>
+</head>
+<body>
+    <h1>This is the child page1</h1>
+    <script>
+        document.domain = location.hostname
+        console.log('This is a message from the child page1');
+
+        
+        setTimeout(() => {
+
+
+            // window.onerror({
+            //     a: 1
+            // })
+
+            top.maxi('c1')
+
+            location.href = "https://maxizhang.com/iframe-child2.html"
+
+        }, 2000)
+    </script>
+</body>
+</html>

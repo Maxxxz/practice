@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title></title>
+		<base href="//qzs.qq.com/"/>
+		<script type="text/javascript">
+    		if(location.href.indexOf('g_iframeUser=1') > -1) {
+				document.domain = location.hostname;
+				console.log('maxilog domain 1', document.domain)
+			} else {
+				document.domain = 'qq.com';
+				console.log('maxilog domain 2', document.domain)
+			}
+		</script>
+	</head>
+	<body style="background:transparent;display:none;">
+		<script type="text/javascript">
+			var p,url = "",qs = (location.search.length > 0 ? location.search : location.hash).substring(1), newprotocol = location.protocol;
+			if(p = top.QZFL.util.splitHttpParamString(qs)){
+				var _host = 'qzonestyle.gtimg.cn';
+				if(p.params && p.params.indexOf("center") == 0){ //好友请求
+					url = newprotocol + "//" + _host + "/qzone/v8/pages/friends/friend_index.html";
+				}else if(p.params && p.params.indexOf("liked") == 0){ //认证空间
+					url = newprotocol + "//" + _host + "/qzone/v5/new_friend/newfriend_fans.html";
+				}else if(p.params && p.params.indexOf("fans") == 0){ //认证空间->我关注的
+					url = newprotocol + '//pageapp.qzone.qq.com/cgi-bin/pageapp_liked.cgi?uin=' + top.g_iLoginUin;
+				}else if(p.params && p.params.indexOf('ofpmd') == 0){ //查找好友
+					url = newprotocol + "//" + _host + "/qzone/v8/pages/friends/find_friends.html";
+				}else if(p.params && p.params.indexOf('import') == 0){ //引入好友
+					url = newprotocol + "//" + _host + "/qzone/v6/friend_manage/import_friends.html";
+				}else if(p.params && p.params.indexOf('visitor') == 0){
+					url = newprotocol + "//" + _host + "/qzone/v6/friend_manage/visitors.html";
+				}else if(p.params && p.params.indexOf("index") == 0){ //从导航进来的好友首页
+					url = newprotocol + "//" + _host + "/qzone/v8/pages/friends/friend_index.html?from=nav";
+				}else{
+					if(p.canvastype == "home"){
+						url = newprotocol + "//" + _host + "/qzone/v8/pages/friends/friend_index.html";
+					}else{
+						url = newprotocol + "//" + _host + "/qzone/v6/friend_manage/visitors.html";
+					}
+				}
+
+    			if(location.href.indexOf('g_iframeUser=1') > -1) {
+					url = url.replace(_host, location.hostname + '/proxy/domain/'+_host)
+				}
+			}
+			location.href = url + location.hash;
+		</script>
+	</body>
+</html>
