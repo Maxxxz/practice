@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: 24px auto;
+            padding: 0 16px;
+        }
+        label {
+            display: block;
+            margin: 12px 0 4px;
+        }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 6px 8px;
+        }
+        button {
+            margin-top: 12px;
+            padding: 6px 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 6px 8px;
+            text-align: left;
+            word-break: break-all;
+        }
+        .hint {
+            color: #666;
+            font-size: 13px;
+        }
+        .err {
+            color: #c00;
+            min-height: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cookie</h1>
+    <p class="hint">有效期 1 天，path=/，domain 为当前主机。只能读写非 HttpOnly 的 cookie。</p>
+
+    <label for="key">Key</label>
+    <input id="key" autocomplete="off">
+
+    <label for="value">Value</label>
+    <input id="value" autocomplete="off">
+
+    <button id="save" type="button">写入</button>
+    <p class="err" id="err"></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+                <th>过期时间</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="list"></tbody>
+    </table>
+
+    <script>
+        var DAY = 60 * 60 * 24;
+
+        function parseCookies() {
+            if (!document.cookie) return [];
+            return document.cookie.split('; ').map(function (part) {
+                var i = part.indexOf('=');
+                var rawKey = i === -1 ? part : part.slice(0, i);
+                var rawValue = i === -1 ? '' : part.slice(i + 1);
+                return {
+                    key: decodeURIComponent(rawKey),
+                    value: decodeURIComponent(rawValue),
+                    expiresText: '无法读取'
+                };
+            });
+        }
+
+        function formatExpires(expires) {
+            if (expires == null) return '会话';
+            var date = new Date(expires);
+            if (isNaN(date.getTime())) return '无法读取';
+            return date.toLocaleString('zh-CN', { hour12: false });
+        }
+
+        function loadCookies() {
+            if (!window.cookieStore || !cookieStore.getAll) {
+                return Promise.resolve(parseCookies());
+            }
+            return cookieStore.getAll().then(function (list) {
+                return list.map(function (item) {
+                    return {
+                        key: item.name,
+                        value: item.value,
+                        expiresText: formatExpires(item.expires)
+                    };
+                });
+            }).catch(function () {
+                return parseCookies();
+            });
+        }
+
+        function render() {
+            return loadCookies().then(function (cookies) {
+                var list = document.getElementById('list');
+                list.innerHTML = '';
+                if (!cookies.length) {
+                    var empty = document.createElement('tr');
+                    empty.innerHTML = '<td colspan="4">暂无</td>';
+                    list.appendChild(empty);
+                    return;
+                }
+                cookies.forEach(function (item) {
+                    var tr = document.createElement('tr');
+                    var tdKey = document.createElement('td');
+                    var tdValue = document.createElement('td');
+                    var tdExpires = document.createElement('td');
+                    var tdAct = document.createElement('td');
+                    var btn = document.createElement('button');
+                    tdKey.textContent = item.key;
+                    tdValue.textContent = item.value;
+                    tdExpires.textContent = item.expiresText;
+                    btn.type = 'button';
+                    btn.textContent = '删除';
+                    btn.addEventListener('click', function () {
+                        document.cookie = encodeURIComponent(item.key) + '=; max-age=0; path=/';
+                        render();
+                    });
+                    tdAct.appendChild(btn);
+                    tr.appendChild(tdKey);
+                    tr.appendChild(tdValue);
+                    tr.appendChild(tdExpires);
+                    tr.appendChild(tdAct);
+                    list.appendChild(tr);
+                });
+            });
+        }
+
+        document.getElementById('save').addEventListener('click', function () {
+            var key = document.getElementById('key').value.trim();
+            var value = document.getElementById('value').value;
+            var err = document.getElementById('err');
+            if (!key) {
+                err.textContent = '请填写 key';
+                return;
+            }
+            err.textContent = '';
+            document.cookie = encodeURIComponent(key) + '=' + encodeURIComponent(value)
+                + '; max-age=' + DAY + '; path=/';
+            render();
+        });
+
+        render();
+    </script>
+</body>
+</html>
