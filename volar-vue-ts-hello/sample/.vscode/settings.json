@@ -1,0 +1,9 @@
+{
+	// TS6：供 Volar / @vue/typescript-plugin 使用（依赖 Compiler API）
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	// TS7：供纯 .ts 文件的 CLI 与原生语言服务使用
+	"js/ts.tsdk.path": "node_modules/@typescript/native/lib",
+	"typescript.experimental.useTsgo": false,
+	"js/ts.experimental.useTsgo": false
+}

@@ -1,2 +1,7 @@
 {
+	"typescript.tsdk": "volar-vue-ts-hello/sample/node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"js/ts.tsdk.path": "volar-vue-ts-hello/sample/node_modules/typescript/lib",
+	"typescript.experimental.useTsgo": false,
+	"js/ts.experimental.useTsgo": false
 }

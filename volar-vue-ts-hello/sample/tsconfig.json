@@ -1,0 +1,25 @@
+{
+	"extends": "@vue/tsconfig/tsconfig.dom.json",
+	"compilerOptions": {
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"noEmit": true,
+		"jsx": "preserve",
+		"jsxImportSource": "vue",
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"stableTypeOrdering": true,
+		"plugins": [
+			{
+				"name": "@vue/typescript-plugin",
+				"include": ["src/**/*.vue"]
+			}
+		]
+	},
+	"include": ["src/**/*.ts", "src/**/*.vue", "src/**/*.d.ts"],
+	"vueCompilerOptions": {
+		"target": 3.5
+	}
+}

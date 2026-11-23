@@ -1,0 +1,24 @@
+{
+	"name": "@vue-hello/language-server",
+	"version": "0.0.1",
+	"main": "out/index.js",
+	"license": "MIT",
+	"files": [
+		"out/**/*.js",
+		"out/**/*.d.ts"
+	],
+	"bin": {
+		"vue-hello-language-server": "./bin/vue-hello-language-server.js"
+	},
+	"dependencies": {
+		"@volar/language-core": "~2.4.28",
+		"@volar/language-server": "~2.4.28",
+		"@volar/typescript": "~2.4.28",
+		"@vue/language-core": "3.3.7",
+		"volar-service-css": "0.0.71",
+		"volar-service-emmet": "0.0.71",
+		"volar-service-html": "0.0.71",
+		"volar-service-typescript": "0.0.71",
+		"vscode-uri": "^3.0.8"
+	}
+}

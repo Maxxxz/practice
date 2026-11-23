@@ -1,0 +1,9 @@
+{
+	"recommendations": [
+		"Vue.volar"
+	],
+	"unwantedRecommendations": [
+		"ms-vscode.vscode-typescript-next",
+		"TypeScriptTeam.native-preview"
+	]
+}

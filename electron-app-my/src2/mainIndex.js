@@ -1,0 +1,158 @@
+
+const { app, BrowserWindow, ipcMain, webContents, screen, dialog, utilityProcess, session, WebContentsView, BaseWindow, View } = require('electron')
+// const cluster = require('node:cluster');
+const path = require('path')
+
+const {windowOpenHandler} = require('./business/windowOpenHandler.js')
+require('./business/dragger.js');
+require('./business/deeplink.js');
+
+
+
+
+
+// 这个fork不行，拿不到electron
+// utilityProcess.fork(path.join(__dirname, 'childs/a.js'))
+
+function createSubWindow (filePath) {
+  // console.log('webContents', webContents)
+  console.log('screen width', screen.getPrimaryDisplay().workAreaSize.width)
+  console.log('screen height', screen.getPrimaryDisplay().workAreaSize.height)
+  const screens = screen.getAllDisplays();
+  console.log('screen.getAllDisplays()', screens)
+
+  const win = new BrowserWindow({
+    // parent: mainWin,
+    modal: false,
+    width: 800,
+    height: 500,
+    webPreferences: {
+      webSecurity: false,
+    }
+  })
+  const fileName = path.join(__dirname, filePath);
+  console.log('fileName', fileName)
+  win.webContents.loadFile(fileName)
+  win.setBounds({ x: 0, y: 0, width: 300, height: 300 })
+  // mainWin.webContents.loadURL('file://' + fileName)
+  win.webContents.openDevTools()
+  win.once('ready-to-show', () => {
+    win.show()
+  })
+}
+
+
+// 创建window的时候才撞见deeplink
+function createMainWindow () {
+  const mainWin = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      webSecurity: false,
+      nodeIntegration: true,
+      partition: 'persist:maxi',
+    }
+  })
+
+  mainWin.loadFile('index.html')
+  mainWin.webContents.openDevTools()
+  windowOpenHandler(mainWin)
+  mainWin.webContents.session.cookies.set({ url: 'https://github.com', name: 'dummy_name', value: 'dummy' })
+  
+  ipcMain.on('onCreateSubWindow', (event, filePath) => {
+    console.log('ipcMain ondragstart', filePath)
+    createSubWindow(filePath)
+  })
+
+}
+
+function createGithubWindow () {
+   const mainWin = new BrowserWindow({
+     width: 800,
+     height: 600,
+     webPreferences: {
+       preload: path.join(__dirname, 'preload.js'),
+       webSecurity: false,
+       nodeIntegration: true,
+       partition: 'persist:maxi',
+     }
+   })
+
+  //  console.log('mainWin.webContents.session.cookies', mainWin.webContents.session.cookies)
+  // mainWin.webContents.session.cookies.set()
+   mainWin.loadURL('https://github.com')
+   mainWin.webContents.openDevTools()
+   mainWin.webContents.session.setProxy({
+      proxyRules: '127.0.0.1:8088',
+      // proxyBypassRules: ['127.0.0.1', 'locolhost']
+    })
+  //  windowOpenHandler(mainWin)
+   
+   ipcMain.on('onCreateSubWindow', (event, filePath) => {
+     console.log('ipcMain ondragstart', filePath)
+     createSubWindow(filePath)
+   })
+ 
+}
+
+function createBaseWindow(){
+  const rightView = new WebContentsView()
+  setTimeout(()=>{
+      const win = new BaseWindow({ width: 1200, height: 600 })
+    const view = new View()
+
+    view.setBackgroundColor('red')
+    view.setBounds({ x: 800, y: 0, width: 100, height: 100 })
+    win.contentView.addChildView(view)
+
+    const leftView = new WebContentsView()
+    leftView.webContents.loadURL('https://electronjs.org')
+    win.contentView.addChildView(leftView)
+
+
+    // rightView.webContents.loadURL('https://github.com/electron/electron')
+    rightView.webContents.loadURL('https://electronjs.org')
+    win.contentView.addChildView(rightView)
+
+    leftView.setBounds({ x: 0, y: 0, width: 400, height: 600 })
+    rightView.setBounds({ x: 400, y: 0, width: 400, height: 600 })
+  }, 1000)
+}
+
+app.whenReady().then(()=>{
+
+  const sesMain = session.fromPartition('persist:maxi')
+  // sesMain.setProxy({
+  //   proxyRules: '127.0.0.1:8088',
+  //   proxyBypassRules: ['127.0.0.1', 'locolhost']
+  // })
+
+  // createGithubWindow()
+  // createMainWindow()
+  createBaseWindow()
+})
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createMainWindow()
+    createGithubWindow()
+  }
+})
+// 处理协议 在本例中，我们选择显示一个错误提示对话框。
+app.on('open-url', (event, url) => {
+  console.log('on open-url', url)
+  dialog.showErrorBox('欢迎回来', `导向自: ${url}`)
+})
+// Electron 在完成初始化，并准备创建浏览器窗口时，
+// 会调用这个方法。
+// 部分 API 在 ready 事件触发后才能使用。
+
+console.log('name', app.getName())
+
